@@ -5,6 +5,5 @@ namespace EmployeeMethods {
     export interface IEmployeeMethods {
         addEmployee: (newEmployee:Employee) => void; 
         updateEmployee: (employee:Employee, index:number) => void;
-        deleteEmployee: (index:number) => void;
     }
 }

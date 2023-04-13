@@ -19,12 +19,6 @@ class Employee {
             localStorage.setItem(EMPLOYEE, JSON.stringify(employeeRecord));
             Employee.viewEmployees();
         };
-        this.deleteEmployee = (index) => {
-            employeeRecord = JSON.parse(localStorage.getItem(EMPLOYEE));
-            employeeRecord.splice(index, 1);
-            localStorage.setItem(EMPLOYEE, JSON.stringify(employeeRecord));
-            Employee.viewEmployees();
-        };
         this._id = _id;
         this._profile = _profile;
         this._about = _about;
@@ -144,6 +138,12 @@ class Employee {
         this._salary = _salary;
     }
 }
+Employee.deleteEmployee = (index) => {
+    employeeRecord = JSON.parse(localStorage.getItem(EMPLOYEE));
+    employeeRecord.splice(index, 1);
+    localStorage.setItem(EMPLOYEE, JSON.stringify(employeeRecord));
+    Employee.viewEmployees();
+};
 Employee.viewEmployees = () => {
     if (localStorage.getItem(EMPLOYEE) != null) {
         employeeRecord = JSON.parse(localStorage.getItem(EMPLOYEE));
@@ -186,6 +186,7 @@ let findEmployee = (empId) => {
     return -1;
 };
 const submitBtn = document.getElementById('submitBtn');
+const modal = document.getElementById('newPrdModal');
 (() => {
     Employee.viewEmployees();
 })();
@@ -213,9 +214,17 @@ let Add_Update = () => {
     employeeObj = new Employee(eId, eProfile, eAbout, eFirstName, eMiddleName, eLastName, eGender, eAge, eEmail, eDesignation, eSkills, eExperience, eSalary);
     if (submitBtn.value === 'Update') {
         employeeObj.updateEmployee(employeeObj, index);
+        // Toast show
+        // const toastTrigger = document.getElementById('updateBtn');
+        // const toastLiveExample = document.getElementById('updateToast');
+        // if (toastTrigger) {
+        //     const toast = new bootstrap.Toast(toastLiveExample);
+        //     toast.show();
+        // }
     }
     else {
         employeeObj.addEmployee(employeeObj);
+        // modal.reset;
     }
 };
 submitBtn.onclick = () => {
@@ -238,6 +247,7 @@ function updateIcon(eid) {
 function deleteIcon(eid) {
     eid = parseInt(eid);
     index = findEmployee(eid);
-    // alert(index);s
-    employeeObj.deleteEmployee(index);
+    if (confirm("Are you sure you want to delete these record?")) {
+        Employee.deleteEmployee(index);
+    }
 }

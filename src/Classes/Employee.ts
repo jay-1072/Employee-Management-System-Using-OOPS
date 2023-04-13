@@ -185,7 +185,7 @@ class Employee implements EmployeeDetails.IEmployeeDetails, EmployeeMethods.IEmp
             Employee.viewEmployees();
         }
 
-        deleteEmployee = (index: number):void => {
+        static deleteEmployee = (index: number):void => {
             employeeRecord = JSON.parse(localStorage.getItem(EMPLOYEE)!);
             employeeRecord.splice(index, 1);
 
@@ -240,6 +240,7 @@ let findEmployee = (empId:number):number => {
 }
 
 const submitBtn = <HTMLInputElement>document.getElementById('submitBtn');
+const modal = <any>document.getElementById('newPrdModal');
 
 (() => {
     Employee.viewEmployees();
@@ -272,9 +273,18 @@ let Add_Update = ():void => {
     
     if(submitBtn.value==='Update') {
         employeeObj.updateEmployee(employeeObj, index);
+        // Toast show
+        // const toastTrigger = document.getElementById('updateBtn');
+        // const toastLiveExample = document.getElementById('updateToast');
+        
+        // if (toastTrigger) {
+        //     const toast = new bootstrap.Toast(toastLiveExample);
+        //     toast.show();
+        // }
     }
     else {
         employeeObj.addEmployee(employeeObj);
+        // modal.reset;
     }
 }
 
@@ -301,6 +311,7 @@ function updateIcon(eid:string|number) {
 function deleteIcon(eid:string|number) {
     eid = parseInt(eid as string);
     index = findEmployee(eid);
-    // alert(index);s
-    employeeObj.deleteEmployee(index);
+    if(confirm("Are you sure you want to delete these record?")) {
+        Employee.deleteEmployee(index);
+    }
 }
