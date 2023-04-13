@@ -3,6 +3,10 @@ table tr th {
     border: 1px solid black;
 }
 
+td {
+    border: 1px solid red;
+}
+
 .footer {
     min-width: 100%;
     background-color: rgb(200, 100, 200);

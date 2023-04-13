@@ -52,24 +52,10 @@
                         data-bs-target="#newPrdModal"><i class="fa-regular fa-plus"></i>
                         New Employee
                     </button>
-
-                    <button type="button" id="updateBtn" class="btn my-4 btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#newPrdModal">
-                        Update Employee
-                    </button>
-
-                    <button type="button" id="viewBtn" class="btn my-4 btn-outline-secondary" >
-                        View Employees
-                    </button>
-
-                    <button type="button" id="viewBtn" class="btn my-4 btn-outline-secondary" >
-                        Delete Employee
-                    </button>
                 </div>
             </div>
         </div>
         <!-- Add new product button ended -->
-
-        
 
         <!-- Modal for new product started -->
 
@@ -79,7 +65,8 @@
                 <div class="modal-content">
                     <!-- modal header -->
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="newPrdModalLabel" style="padding-left: 170px;">Add New Employee
+                        <h1 class="modal-title fs-5" id="newPrdModalLabel" style="padding-left: 170px;">
+                            Add Employee
                         </h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -142,11 +129,12 @@
     <!-- container for table -->
     <div class="container" id="tblContainer" style="overflow: auto;">
         <!-- table started -->
-        <table class="table" id="prdTbl">
+        <table class="table table-hover" id="prdTbl">
             <thead>
-                <tr class="table-dark">
+                <tr>
                     <th scope="col">Employee Id</th>
                     <th scope="col">Profile</th>
+                    <th scope="col">About</th>
                     <th scope="col">FirstName</th>
                     <th scope="col">MiddleName</th>
                     <th scope="col">LastName</th>
@@ -157,6 +145,7 @@
                     <th scope="col">Skills</th>
                     <th scope="col">Experience</th>
                     <th scope="col">Salary</th>
+                    <th scope="col" colspan="2" class="text-center">Action</th>
                 </tr>
             </thead>
             <tbody id="tblBody">
@@ -166,37 +155,12 @@
         <!-- table ended -->
     </div>
 
-    <!-- <div id="showEmployee">
-        <table>
-            <thead>
-                <th>Employee Id</th>
-                <th>Profile</th>
-                <th>About</th>
-                <th>FirstName</th>
-                <th>MiddleName</th>
-                <th>LastName</th>
-                <th>Gender</th>
-                <th>Age</th>
-                <th>Email</th>
-                <th>Designation</th>
-                <th>Skills</th>
-                <th>Experience</th>
-                <th>Salary</th>
-            </thead>
-            <tbody id="tblBody">
-
-            </tbody>
-        </table>
-
-    </div> -->
-
     <!-- footer started -->
     <footer class="footer">
         <p>Copyright&nbsp;<i class="fa fa-copyright" style="color: white;"></i>&nbsp;2023&nbsp;Jay Koshti</p>
         <a href="#" target="_blank">jaykoshti@gmail.com</a>
     </footer>
     <!-- footer ended -->
-
 
 </body>
 

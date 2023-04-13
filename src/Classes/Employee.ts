@@ -182,6 +182,7 @@ class Employee implements EmployeeDetails.IEmployeeDetails, EmployeeMethods.IEmp
             employeeRecord[index] = employee;
 
             localStorage.setItem(EMPLOYEE, JSON.stringify(employeeRecord));
+            Employee.viewEmployees();
         }
 
         deleteEmployee = (index: number):void => {
@@ -189,6 +190,7 @@ class Employee implements EmployeeDetails.IEmployeeDetails, EmployeeMethods.IEmp
             employeeRecord.splice(index, 1);
 
             localStorage.setItem(EMPLOYEE, JSON.stringify(employeeRecord));
+            Employee.viewEmployees();
         }
 
         static viewEmployees = () => {
@@ -210,6 +212,8 @@ class Employee implements EmployeeDetails.IEmployeeDetails, EmployeeMethods.IEmp
                     html += `<td>` + employeeRecord[i]._skills + `</td>`;
                     html += `<td>` + employeeRecord[i]._experience + `</td>`;
                     html += `<td>` + employeeRecord[i]._salary + `</td>`;
+                    html += `<td>` + `<button onclick="updateIcon(${employeeRecord[i]._id})" class="btn btn-light text-center updateIcon" data-bs-toggle="modal" data-bs-target="#newPrdModal"><i class="fa-solid fa-pen-to-square"></i></button>` + `</td>`;
+                    html += `<td>` + `<button onclick="deleteIcon(${employeeRecord[i]._id})" class="btn btn-light text-center deleteIcon"><i class="fa-solid fa-trash"></i></button>` + `</td>`;
                     html += "</tr>";
                 }
                 
@@ -224,9 +228,18 @@ let html = "";
 let employeeObj:Employee;
 let index:number;
 
+// Search Function
+let findEmployee = (empId:number):number => {
+    employeeRecord = JSON.parse(localStorage.getItem(EMPLOYEE)!);
+    for(let i=0; i<employeeRecord.length; i++) {
+        if(empId===employeeRecord[i]._id) {
+            return i;
+        }
+    }
+    return -1;
+}
+
 const submitBtn = <HTMLInputElement>document.getElementById('submitBtn');
-const updateBtn = <HTMLButtonElement>document.getElementById('updateBtn');
-const viewBtn = <HTMLButtonElement>document.getElementById('viewBtn');
 
 (() => {
     Employee.viewEmployees();
@@ -250,35 +263,44 @@ let Add_Update = ():void => {
     eGender = eGender.value;
     let eAge:number = 21;
     eEmail = eEmail.value;
-    let eDesignation:string = '';
+    let eDesignation:string = 'ASP.NET developer';
     let eSkills:string[] = ['HTML5', 'CSS3', 'Bootstrap', 'JAVA', 'Typescript'];
     let eExperience:number = 1;
     let eSalary:number = 50000;
     
     employeeObj = new Employee(eId, eProfile, eAbout, eFirstName, eMiddleName, eLastName, eGender, eAge, eEmail, eDesignation, eSkills, eExperience, eSalary);
-    employeeObj.addEmployee(employeeObj);
-    // employeeObj.updateEmployee(employeeObj, index);
+    
+    if(submitBtn.value==='Update') {
+        employeeObj.updateEmployee(employeeObj, index);
+    }
+    else {
+        employeeObj.addEmployee(employeeObj);
+    }
 }
 
 submitBtn.onclick = ():void => {
     Add_Update();
 }
 
-// updateIcon.onclick = (empId:number):void => {
-//     index = findEmployee(empId);
-// }
+function updateIcon(eid:string|number) {
+    eid = parseInt(eid as string);
+    (<HTMLElement>document.getElementById('newPrdModalLabel')!).innerHTML = 'Update Employee';
+    submitBtn.value = 'Update';
+    index = findEmployee(eid);
 
-updateBtn.onclick = ():void => {
-    Add_Update();
+    employeeRecord = JSON.parse(localStorage.getItem(EMPLOYEE)!);
+    (<any>document.getElementById('empId'))!.value = employeeRecord[index]._id;
+    // (<any>document.getElementById('empProfile'))!.value = employeeRecord[index]._profile;
+    (<any>document.getElementById('empFname'))!.value = employeeRecord[index]._firstName;
+    (<any>document.getElementById('empMname'))!.value = employeeRecord[index]._middleName;
+    (<any>document.getElementById('empLname'))!.value = employeeRecord[index]._lastName;
+    (<any>document.getElementById('empGender'))!.value = employeeRecord[index]._gender;
+    (<any>document.getElementById('empEmail'))!.value = employeeRecord[index]._email;
 }
 
-// Search Function
-let findEmployee = (empId:number):number => {
-    employeeRecord = JSON.parse(localStorage.getItem(EMPLOYEE)!);
-    for(let i=0; i<employeeRecord.length; i++) {
-        if(empId===employeeRecord[i]._id) {
-            return i;
-        }
-    }
-    return -1;
+function deleteIcon(eid:string|number) {
+    eid = parseInt(eid as string);
+    index = findEmployee(eid);
+    // alert(index);s
+    employeeObj.deleteEmployee(index);
 }
