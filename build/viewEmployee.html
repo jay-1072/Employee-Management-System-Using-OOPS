@@ -39,42 +39,85 @@
     </nav>
     <!-- navbar ended -->
 
-    <div class="card container mt-2" style="width: 100%;">
-        <h5 class="card-title text-center">Employee</h5>
-        <div>
-            <div style="float: left; width: 50vw;">
-                <div class="row my-3">
-                    <div id="id" class="col">Id:&nbsp;12345678</div>
-                    <div id="name" class="col">Name:&nbsp;ABC&nbsp;DEF&nbsp;GHI</div>
-                </div>
-                <div class="row mb-3">
-                    <div id="gender" class="col">Gender:&nbsp;Male</div>
-                    <div id="age" class="col">Age:&nbsp;21</div>
-                </div>
-                <div class="row mb-3">
-                    <div id="email" class="col-6">Email:&nbsp;abc@gmail.com</div>
-                    <div id="designation" class="col-6">Designation:ASP.NET&nbsp;developer</div>
-                </div>
-                <div class="row mb-3">
-                    <div id="skills" class="col-6">Skills: C, C++, C#</div>
-                    <div id="salary" class="col-6">Salary: 20000</div>
-                </div>
-            </div>
+    <div class="card container my-5" style="width: 100%; height: 100%;">
 
-            <div style="float: right; width: 10vw;">
-                <img src="https://thebhavinshah.com/wp-content/uploads/2016/09/For-Employees.jpg" style="height: 150px; width:150px;" alt="...">
-            </div>
+        <div class="mt-4 mb-4 text-center">
+            <img src="https://thebhavinshah.com/wp-content/uploads/2016/09/For-Employees.jpg" style="height: 180px; width:180px; border-radius: 100px; border: 1px solid black;" alt="...">
         </div>
 
-        <div id="about" class="row mb-3">
-            <h5 class="text-center">About</h5>
+        <div class="mt-1 mb-5 mx-5 px-5">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </div>
+            
+        <form>
 
-        <div id="salary" class="row mb-2 text-center">
+            <div class="row">
+                <div class="mb-5 col-4">
+                    <label class="mb-1" for="empId">Employee Id</label>
+                    <input type="number" class="form-control" id="empId" name="empId">
+                </div>
+                <div class="mb-5 col-4">
+                    <label for="empProfile" class="form-label mb-1">Profile</label>
+                    <input class="form-control" type="file" id="empProfile">
+                </div>
+                <div class="mb-5 col-4">
+                    <label class="mb-1" for="empEmail">Email</label>
+                    <input type="text" class="form-control" id="empEmail" name="empEmail">
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-5 col-4">
+                    <label class="mb-1" for="empFname">First Name</label>
+                    <input type="text" class="form-control" id="empFname" name="empFname">
+                </div>
+                <div class="mb-5 col-4">
+                    <label class="mb-1" for="empMname">Middle Name</label>
+                    <input type="text" class="form-control" id="empMname" name="empMname">
+                </div>
+                <div class="mb-5 col-4">
+                    <label class="mb-1" for="empLname">Last Name</label>
+                    <input type="text" class="form-control" id="empLname" name="empLname">
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-5 col-4">
+                    <label for="age" class="form-label mt-1">Age&nbsp;</label>(<output></output>)
+                    <input type="range" id="age" class="form-range" min="20" max="50" step="1" value="0" oninput="this.previousElementSibling.value = this.value">
+                </div>
+                <div class="mb-5 col">
+                    <label class="mt-1" for="gender">Gender</label>
+                    <select class="form-select my-1" id="gender">
+                        <option selected>Choose...</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="mb-5 col-4">
+                    <label for="designation" class="form-label">Designation</label>
+                    <input type="text" id="designation" name="designation" class="form-control">
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-5 col-4">
+                    <label for="experience" class="form-label mt-1">Experience&nbsp;</label>(<output></output>)
+                    <input type="range" id="experience" class="form-range" min="1" max="30" step="0.5" value="0" oninput="this.previousElementSibling.value = this.value">
+                </div>
+                <div class="mb-5 col-4">
+                    <label for="skills" class="form-label">Skills&nbsp;</label>
+                    <input type="text" id="skills" name="skills" class="form-control">
+                </div>
+                <div class="mb-5 col-4">
+                    <label for="salary" class="form-label">Salary</label>
+                    <input type="text" id="salary" name="salary" class="form-control">
+                </div>
+            </div>
+        </form>
+
+        <div id="salary" class="row my-4 text-center">
             <div class="col">
-                <button class="btn bg-success" >Update</button> 
-                <button class="btn bg-success">Delete</button>
+                <button class="btn btn-primary mx-3">Update</button> 
+                <button class="btn btn-primary">Delete</button>
             </div>
         </div>
         
