@@ -1,6 +1,8 @@
 ///<reference path='../Interfaces/IEmployeeDetails.ts' />
 ///<reference path='../Interfaces/IEmployeeMethods.ts' />
 
+declare var bootstrap: any;
+
 class Employee implements EmployeeDetails.IEmployeeDetails, EmployeeMethods.IEmployeeMethods   {
         _id:number;
         _profile: string;
@@ -273,18 +275,16 @@ let Add_Update = ():void => {
     
     if(submitBtn.value==='Update') {
         employeeObj.updateEmployee(employeeObj, index);
-        // Toast show
-        // const toastTrigger = document.getElementById('updateBtn');
-        // const toastLiveExample = document.getElementById('updateToast');
-        
-        // if (toastTrigger) {
-        //     const toast = new bootstrap.Toast(toastLiveExample);
-        //     toast.show();
-        // }
+        showToastMessage('Update');
     }
     else {
-        employeeObj.addEmployee(employeeObj);
-        // modal.reset;
+        if(!checkEmployeeId(eId)) {
+            employeeObj.addEmployee(employeeObj);
+            showToastMessage('Add');
+        }
+        else {
+            alert("Employee Id already exist");
+        }
     }
 }
 
@@ -311,7 +311,56 @@ function updateIcon(eid:string|number) {
 function deleteIcon(eid:string|number) {
     eid = parseInt(eid as string);
     index = findEmployee(eid);
-    if(confirm("Are you sure you want to delete these record?")) {
+    if(confirm("Are you sure you want to delete this record?")) {
         Employee.deleteEmployee(index);
+        showToastMessage('Delete');
     }
+}
+
+function checkEmployeeId(empId:number):boolean {
+    let res:boolean = false;
+    if(localStorage.getItem(EMPLOYEE)!=null) {
+        employeeRecord = JSON.parse(localStorage.getItem(EMPLOYEE)!);
+        for(let i=0; i<employeeRecord.length; i++) {
+            if(empId===employeeRecord[i]._id) {
+                res = true;
+                break;
+            }
+        }
+    }
+    return res;
+}
+
+function showToastMessage(msg:string) {
+
+    let status = document.getElementById('statusMessage');
+
+    if(msg==='Add') {
+        status!.innerHTML = 'Product added successfully.';
+    }
+    else if(msg==='Update') {
+        status!.innerHTML = 'Product updated successfully.';
+    }
+    else {
+        status!.innerHTML = 'Product deleted successfully.';
+    }
+
+    const toastTrigger = document.getElementById('submitBtn');
+    const Toast = document.getElementById('Toast');
+    
+    if (toastTrigger) {
+        const toast = new bootstrap.Toast(Toast);
+        toast.show();
+    }
+    setTimeout(()=>{location.reload()}, 700);
+}
+
+const modalClose = document.getElementById("modalClose");
+modalClose!.onclick = ():void => {
+    location.reload();
+}
+
+const formReset = document.getElementById("formReset");
+formReset!.onclick = ():void => {
+    (<HTMLFormElement>document.getElementById("employeeForm"))!.reset();
 }

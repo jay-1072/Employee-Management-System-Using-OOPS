@@ -68,11 +68,12 @@
                         <h1 class="modal-title fs-5" id="newPrdModalLabel" style="padding-left: 170px;">
                             Add Employee
                         </h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" id="modalClose" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
 
                     <!-- modal body -->
                     <div class="modal-body">
+                        <form id="employeeForm">
                         <!-- for employee id -->
                         <div class="mb-3">
                             <label class="mb-1" for="empId">Employee Id</label>
@@ -112,12 +113,13 @@
                             <option value="female">Female</option>
                             <option value="other">Other</option>
                         </select>
+                    </form>
                     </div>
                 </div>
 
                 <!-- modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="reset" class="btn btn-secondary" id="formReset">Reset</button>
                     <input type="submit" value="Add" class="btn btn-primary add-btn" id="submitBtn">
                 </div>
             </div>
@@ -128,13 +130,12 @@
 
     <!-- Toast message on product update -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        <div id="updateToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div id="Toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
                 <h6>Toast Message</h6>
                 <button type="button" class="btn btn-close" data-bs-dismiss="toast" aria-label="Close" style="margin-left: 170px;"></button>
             </div>
-            <div class="toast-body">
-                Product updated successfully.
+            <div class="toast-body" id="statusMessage">
             </div>
         </div>
     </div>
