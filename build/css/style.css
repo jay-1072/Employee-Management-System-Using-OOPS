@@ -1,5 +1,37 @@
-thead tr td {
+* {
+    box-sizing: border-box;
+}
+
+table {
+    table-layout: fixed;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 100px;
+}
+
+thead tr th {
     color: white;
+    width: 10vw;
+} 
+
+td {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100px;
+}
+
+.outer-div {
+    display: flex;
+    flex-direction: column;
+    background-color: red;
+}
+
+.profile-div {
+    background-color: red;
+}
+
+.basic-details-div {
+    /* background-color: black; */
 }
 
 .footer {

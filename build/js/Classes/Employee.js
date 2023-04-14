@@ -150,21 +150,21 @@ Employee.viewEmployees = () => {
         html = "";
         for (let i = 0; i < employeeRecord.length; i++) {
             html += `<tr>`;
-            html += `<td>` + employeeRecord[i]._id + `</td>`;
-            html += `<td>` + employeeRecord[i]._profile + `</td>`;
-            html += `<td>` + employeeRecord[i]._about + `</td>`;
-            html += `<td>` + employeeRecord[i]._firstName + `</td>`;
-            html += `<td>` + employeeRecord[i]._middleName + `</td>`;
-            html += `<td>` + employeeRecord[i]._lastName + `</td>`;
-            html += `<td>` + employeeRecord[i]._gender + `</td>`;
-            html += `<td>` + employeeRecord[i]._age + `</td>`;
-            html += `<td>` + employeeRecord[i]._email + `</td>`;
-            html += `<td>` + employeeRecord[i]._designation + `</td>`;
-            html += `<td>` + employeeRecord[i]._skills + `</td>`;
-            html += `<td>` + employeeRecord[i]._experience + `</td>`;
-            html += `<td>` + employeeRecord[i]._salary + `</td>`;
-            html += `<td>` + `<button onclick="updateIcon(${employeeRecord[i]._id})" class="btn btn-light text-center updateIcon" data-bs-toggle="modal" data-bs-target="#newPrdModal"><i class="fa-solid fa-pen-to-square"></i></button>` + `</td>`;
-            html += `<td>` + `<button onclick="deleteIcon(${employeeRecord[i]._id})" class="btn btn-light text-center deleteIcon"><i class="fa-solid fa-trash"></i></button>` + `</td>`;
+            html += `<td class="table-data text-center">` + employeeRecord[i]._id + `</td>`;
+            html += `<td class="table-data text-center" >` + `<img style="max-width: 100%; heigth:auto;" src="${employeeRecord[i]._profile}">` + `</td>`;
+            html += `<td class="table-data text-center">` + employeeRecord[i]._about + `</td>`;
+            html += `<td class="table-data text-center">` + employeeRecord[i]._firstName + `</td>`;
+            html += `<td class="table-data text-center">` + employeeRecord[i]._middleName + `</td>`;
+            html += `<td class="table-data text-center">` + employeeRecord[i]._lastName + `</td>`;
+            html += `<td class="table-data text-center">` + employeeRecord[i]._gender + `</td>`;
+            html += `<td class="table-data text-center">` + employeeRecord[i]._age + `</td>`;
+            html += `<td class="table-data text-center">` + employeeRecord[i]._email + `</td>`;
+            html += `<td class="table-data text-center">` + employeeRecord[i]._designation + `</td>`;
+            html += `<td class="table-data text-center">` + employeeRecord[i]._skills + `</td>`;
+            html += `<td class="table-data text-center">` + employeeRecord[i]._experience + `</td>`;
+            html += `<td class="table-data text-center">` + employeeRecord[i]._salary + `</td>`;
+            html += `<td class="table-data text-center">` + `<button onclick="updateIcon(${employeeRecord[i]._id})" class="btn btn-light table-data text-center updateIcon" data-bs-toggle="modal" data-bs-target="#newPrdModal"><i class="fa-solid fa-pen-to-square"></i></button>` + `</td>`;
+            html += `<td class="table-data text-center">` + `<button onclick="deleteIcon(${employeeRecord[i]._id})" class="btn btn-light text-center deleteIcon"><i class="fa-solid fa-trash"></i></button>` + `</td>`;
             html += "</tr>";
         }
         document.getElementById('tblBody').innerHTML = html;
@@ -175,6 +175,7 @@ let employeeRecord = [];
 let html = "";
 let employeeObj;
 let index;
+let base64;
 // Search Function
 let findEmployee = (empId) => {
     employeeRecord = JSON.parse(localStorage.getItem(EMPLOYEE));
@@ -199,7 +200,7 @@ let Add_Update = () => {
     let eGender = document.getElementById('empGender');
     let eEmail = document.getElementById('empEmail');
     eId = parseInt(eId.value);
-    eProfile = eProfile.value;
+    eProfile = base64;
     let eAbout = 'I am trainee';
     eFirstName = eFirstName.value;
     eMiddleName = eMiddleName.value;
@@ -244,6 +245,7 @@ function updateIcon(eid) {
     document.getElementById('empEmail').value = employeeRecord[index]._email;
 }
 function deleteIcon(eid) {
+    location.href = 'viewEmployee.html';
     eid = parseInt(eid);
     index = findEmployee(eid);
     if (confirm("Are you sure you want to delete this record?")) {
@@ -291,3 +293,12 @@ const formReset = document.getElementById("formReset");
 formReset.onclick = () => {
     document.getElementById("employeeForm").reset();
 };
+let profileInput = document.getElementById('empProfile');
+profileInput.addEventListener('change', function (event) {
+    const image = event.target.files[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(image);
+    reader.addEventListener('load', () => {
+        base64 = reader.result;
+    });
+});

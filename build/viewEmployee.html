@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee | view</title>
+    <!-- font awesome link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- bootstrap style  -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+    <!-- bootstrap script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
+        </script>
+
+    <!-- my style  -->
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+
+    <!-- my script -->
+    <script defer type="text/javascript" src="./js/Classes/ViewEmployee.js"></script>
+</head>
+
+<body>
+    <!-- navbar started -->
+    <nav class="navbar sticky-top navbar-expand-lg" style="background-color: rgb(200, 100, 200); min-width: 100%;">
+        <div class="container-fluid">
+            <!-- navbar brand -->
+            <a class="navbar-brand" href="#" style="font-size: 100%; color: white; font-weight: 500;">
+                Employee Management System
+            </a>
+        </div>
+    </nav>
+    <!-- navbar ended -->
+
+    <div class="card container mt-2" style="width: 100%;">
+        <h5 class="card-title text-center">Employee</h5>
+        <div>
+            <div style="float: left; width: 50vw;">
+                <div class="row my-3">
+                    <div id="id" class="col">Id:&nbsp;12345678</div>
+                    <div id="name" class="col">Name:&nbsp;ABC&nbsp;DEF&nbsp;GHI</div>
+                </div>
+                <div class="row mb-3">
+                    <div id="gender" class="col">Gender:&nbsp;Male</div>
+                    <div id="age" class="col">Age:&nbsp;21</div>
+                </div>
+                <div class="row mb-3">
+                    <div id="email" class="col-6">Email:&nbsp;abc@gmail.com</div>
+                    <div id="designation" class="col-6">Designation:ASP.NET&nbsp;developer</div>
+                </div>
+                <div class="row mb-3">
+                    <div id="skills" class="col-6">Skills: C, C++, C#</div>
+                    <div id="salary" class="col-6">Salary: 20000</div>
+                </div>
+            </div>
+
+            <div style="float: right; width: 10vw;">
+                <img src="https://thebhavinshah.com/wp-content/uploads/2016/09/For-Employees.jpg" style="height: 150px; width:150px;" alt="...">
+            </div>
+        </div>
+
+        <div id="about" class="row mb-3">
+            <h5 class="text-center">About</h5>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </div>
+
+        <div id="salary" class="row mb-2 text-center">
+            <div class="col">
+                <button class="btn bg-success" >Update</button> 
+                <button class="btn bg-success">Delete</button>
+            </div>
+        </div>
+        
+      </div>
+
+    <!-- footer started -->
+    <footer class="footer">
+        <p>Copyright&nbsp;<i class="fa fa-copyright" style="color: white;"></i>&nbsp;2023&nbsp;Jay Koshti</p>
+        <a href="#" target="_blank">jaykoshti@gmail.com</a>
+    </footer>
+    <!-- footer ended -->
+
+</body>
+
+</html>
