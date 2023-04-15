@@ -1,30 +1,32 @@
-let empRecords = JSON.parse(localStorage.getItem('EmployeeRecords')!);
-let data = "";
-for(let i=0; i<empRecords.length; i++) {
-    data += `<tr>`;
-    // Outer Div
-    // data += `<div style="background-color:red" class="outer-div">`;
-    
-    // For profile
-    data += `<td>`;
-    data += `<div class="profile-div">`;
-    data += `<img class="text-center" style="height: 100px; width:100px" src="${empRecords[i]._profile}">`;
-    data += `</div>`;
-    data += `</td>`;
-
-    // For basic details
-    data += `<td>`;
-    data += `<div class="basic-details-div">`;
-    data += `<div class="table-data text-center">` + empRecords[i]._id + `</div>`;
-    data += `<div class="table-data text-center">` + empRecords[i]._firstName + `</div>`;
-    data += `<div class="table-data text-center">` + empRecords[i]._middleName + `</div>`;
-    data += `<div class="table-data text-center">` + empRecords[i]._lastName + `</div>`;
-    data += `<div class="table-data text-center">` + empRecords[i]._gender + `</div>`;
-    data += `<div class="table-data text-center">` + empRecords[i]._age + `</div>`;
-    data += `</td>`;
-    
-
-    data += "</tr>";
+let find = (empId:number):number => {
+    let employeeRecord = JSON.parse(localStorage.getItem('EmployeeRecords')!);
+    for(let i=0; i<employeeRecord.length; i++) {
+        if(empId===employeeRecord[i]._id) {
+            return i;
+        }
+    }
+    return -1;
 }
 
-document.getElementById("empTbl")!.innerHTML = data;
+var url = new URL(window.location.href);
+// Retrieving query string values
+let eid:string|number = url.searchParams.get("id")!;
+eid = parseInt(eid as string);
+let indx = find(eid);
+
+console.log(indx);
+
+let Record = JSON.parse(localStorage.getItem('EmployeeRecords')!);
+(<any>document.getElementById('id')!).value = Record[indx]._id;
+// (<any>document.getElementById('profile'))!.value = Record[indx]._profile;
+(<any>document.getElementById('about'))!.innerHTML = Record[indx]._about;
+(<any>document.getElementById('fname'))!.value = Record[indx]._firstName;
+(<any>document.getElementById('mname'))!.value = Record[indx]._middleName;
+(<any>document.getElementById('lname'))!.value = Record[indx]._lastName;
+(<any>document.getElementById('gender'))!.value = Record[indx]._gender;
+(<any>document.getElementById('email'))!.value = Record[indx]._email;
+(<any>document.getElementById('age'))!.value = Record[indx]._age;
+(<any>document.getElementById('experience'))!.value = Record[indx]._experience;
+(<any>document.getElementById('skills'))!.value = Record[indx]._skills;
+(<any>document.getElementById('salary'))!.value = Record[indx]._salary;
+(<any>document.getElementById('designation'))!.value = Record[indx]._designation;

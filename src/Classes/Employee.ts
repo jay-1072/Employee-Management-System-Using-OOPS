@@ -1,9 +1,11 @@
 ///<reference path='../Interfaces/IEmployeeDetails.ts' />
 ///<reference path='../Interfaces/IEmployeeMethods.ts' />
 
+
+
 declare var bootstrap: any;
 
-class Employee implements EmployeeDetails.IEmployeeDetails, EmployeeMethods.IEmployeeMethods   {
+class Employee implements EmployeeDetails.IEmployeeDetails, EmployeeMethods.IEmployeeMethods {
         _id:number;
         _profile: string;
         _about: string;
@@ -214,8 +216,9 @@ class Employee implements EmployeeDetails.IEmployeeDetails, EmployeeMethods.IEmp
                     html += `<td class="table-data text-center">` + employeeRecord[i]._skills + `</td>`;
                     html += `<td class="table-data text-center">` + employeeRecord[i]._experience + `</td>`;
                     html += `<td class="table-data text-center">` + employeeRecord[i]._salary + `</td>`;
+                    html += `<td class="table-data text-center">` + `<button onclick="location.href='viewEmployee.html?id=${employeeRecord[i]._id}'" class="btn btn-light text-center viewIcon"><i class="fa fa-light fa-eye"></i></button>` + `</td>`;
                     html += `<td class="table-data text-center">` + `<button onclick="updateIcon(${employeeRecord[i]._id})" class="btn btn-light table-data text-center updateIcon" data-bs-toggle="modal" data-bs-target="#newPrdModal"><i class="fa-solid fa-pen-to-square"></i></button>` + `</td>`;
-                    html += `<td class="table-data text-center">` + `<button onclick="deleteIcon(${employeeRecord[i]._id})" class="btn btn-light text-center deleteIcon"><i class="fa-solid fa-trash"></i></button>` + `</td>`;
+                    html += `<td class="table-data text-center">` + `<button onclick="deleteIcon(${employeeRecord[i]._id})" class="btn btn-light text-center deleteIcon"><i class="fa-solid fa-trash"></i></button>` + `</td>`;                                     
                     html += "</tr>";
                 }
                 
@@ -224,16 +227,8 @@ class Employee implements EmployeeDetails.IEmployeeDetails, EmployeeMethods.IEmp
         }
 }
 
-const EMPLOYEE = 'EmployeeRecords';
-let employeeRecord:Employee[] = [];
-let html = "";
-let employeeObj:Employee;
-let index:number;
-let base64:any;
-
-// Search Function
 let findEmployee = (empId:number):number => {
-    employeeRecord = JSON.parse(localStorage.getItem(EMPLOYEE)!);
+    let employeeRecord = JSON.parse(localStorage.getItem('EmployeeRecords')!);
     for(let i=0; i<employeeRecord.length; i++) {
         if(empId===employeeRecord[i]._id) {
             return i;
@@ -241,6 +236,14 @@ let findEmployee = (empId:number):number => {
     }
     return -1;
 }
+
+
+const EMPLOYEE = 'EmployeeRecords';
+let employeeRecord:Employee[] = [];
+let html = "";
+let employeeObj:Employee;
+let index:number;
+let base64:any;
 
 const submitBtn = <HTMLInputElement>document.getElementById('submitBtn');
 const modal = <any>document.getElementById('newPrdModal');
@@ -310,7 +313,6 @@ function updateIcon(eid:string|number) {
 }
 
 function deleteIcon(eid:string|number) {
-    location.href = 'viewEmployee.html';
     eid = parseInt(eid as string);
     index = findEmployee(eid);
     if(confirm("Are you sure you want to delete this record?")) {

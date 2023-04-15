@@ -163,6 +163,7 @@ Employee.viewEmployees = () => {
             html += `<td class="table-data text-center">` + employeeRecord[i]._skills + `</td>`;
             html += `<td class="table-data text-center">` + employeeRecord[i]._experience + `</td>`;
             html += `<td class="table-data text-center">` + employeeRecord[i]._salary + `</td>`;
+            html += `<td class="table-data text-center">` + `<button onclick="location.href='viewEmployee.html?id=${employeeRecord[i]._id}'" class="btn btn-light text-center viewIcon"><i class="fa fa-light fa-eye"></i></button>` + `</td>`;
             html += `<td class="table-data text-center">` + `<button onclick="updateIcon(${employeeRecord[i]._id})" class="btn btn-light table-data text-center updateIcon" data-bs-toggle="modal" data-bs-target="#newPrdModal"><i class="fa-solid fa-pen-to-square"></i></button>` + `</td>`;
             html += `<td class="table-data text-center">` + `<button onclick="deleteIcon(${employeeRecord[i]._id})" class="btn btn-light text-center deleteIcon"><i class="fa-solid fa-trash"></i></button>` + `</td>`;
             html += "</tr>";
@@ -170,15 +171,8 @@ Employee.viewEmployees = () => {
         document.getElementById('tblBody').innerHTML = html;
     }
 };
-const EMPLOYEE = 'EmployeeRecords';
-let employeeRecord = [];
-let html = "";
-let employeeObj;
-let index;
-let base64;
-// Search Function
 let findEmployee = (empId) => {
-    employeeRecord = JSON.parse(localStorage.getItem(EMPLOYEE));
+    let employeeRecord = JSON.parse(localStorage.getItem('EmployeeRecords'));
     for (let i = 0; i < employeeRecord.length; i++) {
         if (empId === employeeRecord[i]._id) {
             return i;
@@ -186,6 +180,12 @@ let findEmployee = (empId) => {
     }
     return -1;
 };
+const EMPLOYEE = 'EmployeeRecords';
+let employeeRecord = [];
+let html = "";
+let employeeObj;
+let index;
+let base64;
 const submitBtn = document.getElementById('submitBtn');
 const modal = document.getElementById('newPrdModal');
 (() => {
@@ -245,7 +245,6 @@ function updateIcon(eid) {
     document.getElementById('empEmail').value = employeeRecord[index]._email;
 }
 function deleteIcon(eid) {
-    location.href = 'viewEmployee.html';
     eid = parseInt(eid);
     index = findEmployee(eid);
     if (confirm("Are you sure you want to delete this record?")) {
