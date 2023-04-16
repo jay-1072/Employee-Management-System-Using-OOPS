@@ -1,11 +1,11 @@
 "use strict";
 ///<reference path='../Interfaces/IEmployeeDetails.ts' />
 ///<reference path='../Interfaces/IEmployeeMethods.ts' />
-class Employee {
+var Employee = /** @class */ (function () {
     // Employee class constructor
-    constructor(_id, _profile, _about, _firstName, _middleName, _lastName, _gender, _age, _email, _designation, _skills, _experience, _salary) {
-        this.addEmployee = (newEmployee) => {
-            let tempVar = localStorage.getItem(EMPLOYEE);
+    function Employee(_id, _profile, _about, _firstName, _middleName, _lastName, _gender, _age, _email, _designation, _skills, _experience, _salary) {
+        this.addEmployee = function (newEmployee) {
+            var tempVar = localStorage.getItem(EMPLOYEE);
             if (tempVar != null) {
                 employeeRecord = JSON.parse(tempVar);
             }
@@ -13,7 +13,7 @@ class Employee {
             localStorage.setItem(EMPLOYEE, JSON.stringify(employeeRecord));
             Employee.viewEmployees();
         };
-        this.updateEmployee = (employee, index) => {
+        this.updateEmployee = function (employee, index) {
             employeeRecord = JSON.parse(localStorage.getItem(EMPLOYEE));
             employeeRecord[index] = employee;
             localStorage.setItem(EMPLOYEE, JSON.stringify(employeeRecord));
@@ -33,185 +33,244 @@ class Employee {
         this._experience = _experience;
         this._salary = _salary;
     }
-    // getter method for employeeId
-    get employeeId() {
-        return this._id;
-    }
-    // setter method for employeeId
-    set employeeId(_id) {
-        this._id = _id;
-    }
-    // getter method for employeeProfile
-    get employeeProfile() {
-        return this._profile;
-    }
-    // setter method for employeeProfile
-    set employeeProfile(_profile) {
-        this._profile = _profile;
-    }
-    // getter method for employeeAboutUs
-    get employeeAboutUs() {
-        return this._about;
-    }
-    // setter method for employeeAboutUs
-    set employeeAboutUs(_about) {
-        this._about = _about;
-    }
-    // getter method for employeeFirstName
-    get employeeFirstName() {
-        return this._firstName;
-    }
-    // setter method for employeeFirstName
-    set employeeFirstName(_firstName) {
-        this._firstName = _firstName;
-    }
-    // getter method for employeeMiddleName
-    get employeeMiddleName() {
-        return this._middleName;
-    }
-    // setter method for employeeMiddleName
-    set employeeMiddleName(_middleName) {
-        this._middleName = _middleName;
-    }
-    // getter method for employeeLastName
-    get employeeLastName() {
-        return this._lastName;
-    }
-    // setter method for employeeLastName
-    set employeeLastName(_lastName) {
-        this._lastName = _lastName;
-    }
-    // getter method for employeeGender
-    get employeeGender() {
-        return this._gender;
-    }
-    // setter method for employeeGender
-    set employeeGender(_gender) {
-        this._gender = _gender;
-    }
-    // getter method for employeeAge
-    get employeeAge() {
-        return this._age;
-    }
-    // setter method for employeeAge
-    set employeeAge(_age) {
-        this._age = _age;
-    }
-    // getter method for employeeContact
-    get employeeEmail() {
-        return this._email;
-    }
-    // setter method for employeeContact
-    set employeeEmail(_email) {
-        this._email = _email;
-    }
-    // getter method for employeeDesignation
-    get employeeDesignation() {
-        return this._designation;
-    }
-    // setter method for employeeDesignation
-    set employeeDesignation(_designation) {
-        this._designation = _designation;
-    }
-    // getter method for employeeSkills
-    get employeeSkills() {
-        return this._skills;
-    }
-    // setter method for employeeSkills
-    set employeeSkills(_skills) {
-        this._skills = _skills;
-    }
-    // getter method for employeeExperience
-    get employeeExperience() {
-        return this._experience;
-    }
-    // setter method for employeeExperience
-    set employeeExperience(_experience) {
-        this._experience = _experience;
-    }
-    // getter method for employeeSalary
-    get employeeSalary() {
-        return this._salary;
-    }
-    // setter method for employeeSalary
-    set employeeSalary(_salary) {
-        this._salary = _salary;
-    }
-}
-Employee.deleteEmployee = (index) => {
-    employeeRecord = JSON.parse(localStorage.getItem(EMPLOYEE));
-    employeeRecord.splice(index, 1);
-    localStorage.setItem(EMPLOYEE, JSON.stringify(employeeRecord));
-    Employee.viewEmployees();
-};
-Employee.viewEmployees = () => {
-    if (localStorage.getItem(EMPLOYEE) != null) {
+    Object.defineProperty(Employee.prototype, "employeeId", {
+        // getter method for employeeId
+        get: function () {
+            return this._id;
+        },
+        // setter method for employeeId
+        set: function (_id) {
+            this._id = _id;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Employee.prototype, "employeeProfile", {
+        // getter method for employeeProfile
+        get: function () {
+            return this._profile;
+        },
+        // setter method for employeeProfile
+        set: function (_profile) {
+            this._profile = _profile;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Employee.prototype, "employeeAboutUs", {
+        // getter method for employeeAboutUs
+        get: function () {
+            return this._about;
+        },
+        // setter method for employeeAboutUs
+        set: function (_about) {
+            this._about = _about;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Employee.prototype, "employeeFirstName", {
+        // getter method for employeeFirstName
+        get: function () {
+            return this._firstName;
+        },
+        // setter method for employeeFirstName
+        set: function (_firstName) {
+            this._firstName = _firstName;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Employee.prototype, "employeeMiddleName", {
+        // getter method for employeeMiddleName
+        get: function () {
+            return this._middleName;
+        },
+        // setter method for employeeMiddleName
+        set: function (_middleName) {
+            this._middleName = _middleName;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Employee.prototype, "employeeLastName", {
+        // getter method for employeeLastName
+        get: function () {
+            return this._lastName;
+        },
+        // setter method for employeeLastName
+        set: function (_lastName) {
+            this._lastName = _lastName;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Employee.prototype, "employeeGender", {
+        // getter method for employeeGender
+        get: function () {
+            return this._gender;
+        },
+        // setter method for employeeGender
+        set: function (_gender) {
+            this._gender = _gender;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Employee.prototype, "employeeAge", {
+        // getter method for employeeAge
+        get: function () {
+            return this._age;
+        },
+        // setter method for employeeAge
+        set: function (_age) {
+            this._age = _age;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Employee.prototype, "employeeEmail", {
+        // getter method for employeeContact
+        get: function () {
+            return this._email;
+        },
+        // setter method for employeeContact
+        set: function (_email) {
+            this._email = _email;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Employee.prototype, "employeeDesignation", {
+        // getter method for employeeDesignation
+        get: function () {
+            return this._designation;
+        },
+        // setter method for employeeDesignation
+        set: function (_designation) {
+            this._designation = _designation;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Employee.prototype, "employeeSkills", {
+        // getter method for employeeSkills
+        get: function () {
+            return this._skills;
+        },
+        // setter method for employeeSkills
+        set: function (_skills) {
+            this._skills = _skills;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Employee.prototype, "employeeExperience", {
+        // getter method for employeeExperience
+        get: function () {
+            return this._experience;
+        },
+        // setter method for employeeExperience
+        set: function (_experience) {
+            this._experience = _experience;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Employee.prototype, "employeeSalary", {
+        // getter method for employeeSalary
+        get: function () {
+            return this._salary;
+        },
+        // setter method for employeeSalary
+        set: function (_salary) {
+            this._salary = _salary;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Employee.deleteEmployee = function (index) {
         employeeRecord = JSON.parse(localStorage.getItem(EMPLOYEE));
-        html = "";
-        for (let i = 0; i < employeeRecord.length; i++) {
-            html += `<tr>`;
-            html += `<td class="table-data text-center">` + employeeRecord[i]._id + `</td>`;
-            html += `<td class="table-data text-center" >` + `<img style="max-width: 100%; heigth:auto;" src="${employeeRecord[i]._profile}">` + `</td>`;
-            html += `<td class="table-data text-center">` + employeeRecord[i]._about + `</td>`;
-            html += `<td class="table-data text-center">` + employeeRecord[i]._firstName + `</td>`;
-            html += `<td class="table-data text-center">` + employeeRecord[i]._middleName + `</td>`;
-            html += `<td class="table-data text-center">` + employeeRecord[i]._lastName + `</td>`;
-            html += `<td class="table-data text-center">` + employeeRecord[i]._gender + `</td>`;
-            html += `<td class="table-data text-center">` + employeeRecord[i]._age + `</td>`;
-            html += `<td class="table-data text-center">` + employeeRecord[i]._email + `</td>`;
-            html += `<td class="table-data text-center">` + employeeRecord[i]._designation + `</td>`;
-            html += `<td class="table-data text-center">` + employeeRecord[i]._skills + `</td>`;
-            html += `<td class="table-data text-center">` + employeeRecord[i]._experience + `</td>`;
-            html += `<td class="table-data text-center">` + employeeRecord[i]._salary + `</td>`;
-            html += `<td class="table-data text-center">` + `<button onclick="location.href='viewEmployee.html?id=${employeeRecord[i]._id}'" class="btn btn-light text-center viewIcon"><i class="fa fa-light fa-eye"></i></button>` + `</td>`;
-            html += `<td class="table-data text-center">` + `<button onclick="updateIcon(${employeeRecord[i]._id})" class="btn btn-light table-data text-center updateIcon" data-bs-toggle="modal" data-bs-target="#newPrdModal"><i class="fa-solid fa-pen-to-square"></i></button>` + `</td>`;
-            html += `<td class="table-data text-center">` + `<button onclick="deleteIcon(${employeeRecord[i]._id})" class="btn btn-light text-center deleteIcon"><i class="fa-solid fa-trash"></i></button>` + `</td>`;
-            html += "</tr>";
+        employeeRecord.splice(index, 1);
+        localStorage.setItem(EMPLOYEE, JSON.stringify(employeeRecord));
+        Employee.viewEmployees();
+    };
+    Employee.viewEmployees = function () {
+        if (localStorage.getItem(EMPLOYEE) != null) {
+            employeeRecord = JSON.parse(localStorage.getItem(EMPLOYEE));
+            html = "";
+            for (var i = 0; i < employeeRecord.length; i++) {
+                html += "<tr>";
+                html += "<td class=\"table-data text-center\">" + employeeRecord[i]._id + "</td>";
+                html += "<td class=\"table-data text-center\" >" + "<img style=\"max-width: 100%; heigth:auto;\" src=\"".concat(employeeRecord[i]._profile, "\">") + "</td>";
+                html += "<td class=\"table-data text-center\">" + employeeRecord[i]._about + "</td>";
+                html += "<td class=\"table-data text-center\">" + employeeRecord[i]._firstName + "</td>";
+                html += "<td class=\"table-data text-center\">" + employeeRecord[i]._middleName + "</td>";
+                html += "<td class=\"table-data text-center\">" + employeeRecord[i]._lastName + "</td>";
+                html += "<td class=\"table-data text-center\">" + employeeRecord[i]._gender + "</td>";
+                html += "<td class=\"table-data text-center\">" + employeeRecord[i]._age + "</td>";
+                html += "<td class=\"table-data text-center\">" + employeeRecord[i]._email + "</td>";
+                html += "<td class=\"table-data text-center\">" + employeeRecord[i]._designation + "</td>";
+                html += "<td class=\"table-data text-center\">" + employeeRecord[i]._skills + "</td>";
+                html += "<td class=\"table-data text-center\">" + employeeRecord[i]._experience + "</td>";
+                html += "<td class=\"table-data text-center\">" + employeeRecord[i]._salary + "</td>";
+                html += "<td class=\"table-data text-center\">" + "<button onclick=\"location.href='viewEmployee.html?id=".concat(employeeRecord[i]._id, "'\" class=\"btn btn-light text-center viewIcon\"><i class=\"fa fa-light fa-eye\"></i></button>") + "</td>";
+                html += "<td class=\"table-data text-center\">" + "<button onclick=\"updateIcon(".concat(employeeRecord[i]._id, ")\" class=\"btn btn-light table-data text-center updateIcon\" data-bs-toggle=\"modal\" data-bs-target=\"#newPrdModal\"><i class=\"fa-solid fa-pen-to-square\"></i></button>") + "</td>";
+                html += "<td class=\"table-data text-center\">" + "<button onclick=\"deleteIcon(".concat(employeeRecord[i]._id, ")\" class=\"btn btn-light text-center deleteIcon\"><i class=\"fa-solid fa-trash\"></i></button>") + "</td>";
+                html += "</tr>";
+            }
+            document.getElementById('tblBody').innerHTML = html;
         }
-        document.getElementById('tblBody').innerHTML = html;
-    }
-};
-let findEmployee = (empId) => {
-    let employeeRecord = JSON.parse(localStorage.getItem('EmployeeRecords'));
-    for (let i = 0; i < employeeRecord.length; i++) {
+    };
+    return Employee;
+}());
+var findEmployee = function (empId) {
+    var employeeRecord = JSON.parse(localStorage.getItem('EmployeeRecords'));
+    for (var i = 0; i < employeeRecord.length; i++) {
         if (empId === employeeRecord[i]._id) {
             return i;
         }
     }
     return -1;
 };
-const EMPLOYEE = 'EmployeeRecords';
-let employeeRecord = [];
-let html = "";
-let employeeObj;
-let index;
-let base64;
-const submitBtn = document.getElementById('submitBtn');
-const modal = document.getElementById('newPrdModal');
-(() => {
+var EMPLOYEE = 'EmployeeRecords';
+var employeeRecord = [];
+var html = "";
+var employeeObj;
+var index;
+var base64;
+var submitBtn = document.getElementById('submitBtn');
+var modal = document.getElementById('newPrdModal');
+(function () {
     Employee.viewEmployees();
 })();
-let Add_Update = () => {
-    let eId = document.getElementById('empId');
-    let eProfile = document.getElementById('empProfile');
-    let eFirstName = document.getElementById('empFname');
-    let eMiddleName = document.getElementById('empMname');
-    let eLastName = document.getElementById('empLname');
-    let eGender = document.getElementById('empGender');
-    let eEmail = document.getElementById('empEmail');
+var Add_Update = function () {
+    var eId = document.getElementById('empId');
+    var eAbout = document.getElementById('empAbout');
+    var eProfile = document.getElementById('empProfile');
+    var eFirstName = document.getElementById('empFname');
+    var eMiddleName = document.getElementById('empMname');
+    var eLastName = document.getElementById('empLname');
+    var eGender = document.getElementById('empGender');
+    var eAge = document.getElementById('empAge');
+    var eEmail = document.getElementById('empEmail');
+    var eDesignation = document.getElementById('empDesignation');
+    var eSkills = document.getElementById('empSkills');
+    var eExperience = document.getElementById('empExperience');
+    var eSalary = document.getElementById('empSalary');
     eId = parseInt(eId.value);
     eProfile = base64;
-    let eAbout = 'I am trainee';
+    eAbout = eAbout.value;
     eFirstName = eFirstName.value;
     eMiddleName = eMiddleName.value;
     eLastName = eLastName.value;
     eGender = eGender.value;
-    let eAge = 21;
+    eAge = eAge.value;
     eEmail = eEmail.value;
-    let eDesignation = 'ASP.NET developer';
-    let eSkills = ['HTML5', 'CSS3', 'Bootstrap', 'JAVA', 'Typescript'];
-    let eExperience = 1;
-    let eSalary = 50000;
+    eDesignation = eDesignation.value;
+    eSkills = eSkills.value;
+    eExperience = eExperience.value;
+    eSalary = eSalary.value;
     employeeObj = new Employee(eId, eProfile, eAbout, eFirstName, eMiddleName, eLastName, eGender, eAge, eEmail, eDesignation, eSkills, eExperience, eSalary);
     if (submitBtn.value === 'Update') {
         employeeObj.updateEmployee(employeeObj, index);
@@ -227,7 +286,7 @@ let Add_Update = () => {
         }
     }
 };
-submitBtn.onclick = () => {
+submitBtn.onclick = function () {
     Add_Update();
 };
 function updateIcon(eid) {
@@ -253,10 +312,10 @@ function deleteIcon(eid) {
     }
 }
 function checkEmployeeId(empId) {
-    let res = false;
+    var res = false;
     if (localStorage.getItem(EMPLOYEE) != null) {
         employeeRecord = JSON.parse(localStorage.getItem(EMPLOYEE));
-        for (let i = 0; i < employeeRecord.length; i++) {
+        for (var i = 0; i < employeeRecord.length; i++) {
             if (empId === employeeRecord[i]._id) {
                 res = true;
                 break;
@@ -266,7 +325,7 @@ function checkEmployeeId(empId) {
     return res;
 }
 function showToastMessage(msg) {
-    let status = document.getElementById('statusMessage');
+    var status = document.getElementById('statusMessage');
     if (msg === 'Add') {
         status.innerHTML = 'Product added successfully.';
     }
@@ -276,28 +335,28 @@ function showToastMessage(msg) {
     else {
         status.innerHTML = 'Product deleted successfully.';
     }
-    const toastTrigger = document.getElementById('submitBtn');
-    const Toast = document.getElementById('Toast');
+    var toastTrigger = document.getElementById('submitBtn');
+    var Toast = document.getElementById('Toast');
     if (toastTrigger) {
-        const toast = new bootstrap.Toast(Toast);
+        var toast = new bootstrap.Toast(Toast);
         toast.show();
     }
-    setTimeout(() => { location.reload(); }, 700);
+    setTimeout(function () { location.reload(); }, 700);
 }
-const modalClose = document.getElementById("modalClose");
-modalClose.onclick = () => {
+var modalClose = document.getElementById("modalClose");
+modalClose.onclick = function () {
     location.reload();
 };
-const formReset = document.getElementById("formReset");
-formReset.onclick = () => {
+var formReset = document.getElementById("formReset");
+formReset.onclick = function () {
     document.getElementById("employeeForm").reset();
 };
-let profileInput = document.getElementById('empProfile');
+var profileInput = document.getElementById('empProfile');
 profileInput.addEventListener('change', function (event) {
-    const image = event.target.files[0];
-    let reader = new FileReader();
+    var image = event.target.files[0];
+    var reader = new FileReader();
     reader.readAsDataURL(image);
-    reader.addEventListener('load', () => {
+    reader.addEventListener('load', function () {
         base64 = reader.result;
     });
 });

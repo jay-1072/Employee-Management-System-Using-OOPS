@@ -1,8 +1,6 @@
 ///<reference path='../Interfaces/IEmployeeDetails.ts' />
 ///<reference path='../Interfaces/IEmployeeMethods.ts' />
 
-
-
 declare var bootstrap: any;
 
 class Employee implements EmployeeDetails.IEmployeeDetails, EmployeeMethods.IEmployeeMethods {
@@ -200,7 +198,7 @@ class Employee implements EmployeeDetails.IEmployeeDetails, EmployeeMethods.IEmp
         static viewEmployees = () => {
             if(localStorage.getItem(EMPLOYEE)!=null) {
                 employeeRecord = JSON.parse(localStorage.getItem(EMPLOYEE)!);
-                    html = "";
+                html = "";
                 for(let i=0; i<employeeRecord.length; i++) {
                     html += `<tr>`;
                     html += `<td class="table-data text-center">` + employeeRecord[i]._id + `</td>`;
@@ -219,7 +217,7 @@ class Employee implements EmployeeDetails.IEmployeeDetails, EmployeeMethods.IEmp
                     html += `<td class="table-data text-center">` + `<button onclick="location.href='viewEmployee.html?id=${employeeRecord[i]._id}'" class="btn btn-light text-center viewIcon"><i class="fa fa-light fa-eye"></i></button>` + `</td>`;
                     html += `<td class="table-data text-center">` + `<button onclick="updateIcon(${employeeRecord[i]._id})" class="btn btn-light table-data text-center updateIcon" data-bs-toggle="modal" data-bs-target="#newPrdModal"><i class="fa-solid fa-pen-to-square"></i></button>` + `</td>`;
                     html += `<td class="table-data text-center">` + `<button onclick="deleteIcon(${employeeRecord[i]._id})" class="btn btn-light text-center deleteIcon"><i class="fa-solid fa-trash"></i></button>` + `</td>`;                                     
-                    html += "</tr>";
+                    html += `</tr>`;
                 }
                 
                 document.getElementById('tblBody')!.innerHTML = html;
@@ -237,7 +235,6 @@ let findEmployee = (empId:number):number => {
     return -1;
 }
 
-
 const EMPLOYEE = 'EmployeeRecords';
 let employeeRecord:Employee[] = [];
 let html = "";
@@ -254,26 +251,32 @@ const modal = <any>document.getElementById('newPrdModal');
 
 let Add_Update = ():void => {
     let eId:any = <HTMLInputElement>document.getElementById('empId');
+    let eAbout:any = <HTMLInputElement>document.getElementById('empAbout');
     let eProfile:any = <HTMLInputElement>document.getElementById('empProfile');
     let eFirstName:any = <HTMLInputElement>document.getElementById('empFname');
     let eMiddleName:any = <HTMLInputElement>document.getElementById('empMname');
     let eLastName:any = <HTMLInputElement>document.getElementById('empLname');
     let eGender:any = <HTMLInputElement>document.getElementById('empGender');
+    let eAge:any = <HTMLInputElement>document.getElementById('empAge');
     let eEmail:any = <HTMLInputElement>document.getElementById('empEmail');
+    let eDesignation:any = <HTMLInputElement>document.getElementById('empDesignation');
+    let eSkills:any = <HTMLInputElement>document.getElementById('empSkills');
+    let eExperience:any = <HTMLInputElement>document.getElementById('empExperience');
+    let eSalary:any = <HTMLInputElement>document.getElementById('empSalary');
 
     eId = parseInt(eId.value);
     eProfile = base64;
-    let eAbout:string = 'I am trainee';
+    eAbout = eAbout.value;
     eFirstName = eFirstName.value;
     eMiddleName = eMiddleName.value;
     eLastName = eLastName.value;
     eGender = eGender.value;
-    let eAge:number = 21;
+    eAge = eAge.value;
     eEmail = eEmail.value;
-    let eDesignation:string = 'ASP.NET developer';
-    let eSkills:string[] = ['HTML5', 'CSS3', 'Bootstrap', 'JAVA', 'Typescript'];
-    let eExperience:number = 1;
-    let eSalary:number = 50000;
+    eDesignation = eDesignation.value;
+    eSkills = eSkills.value;
+    eExperience = eExperience.value;
+    eSalary = eSalary.value;
     
     employeeObj = new Employee(eId, eProfile, eAbout, eFirstName, eMiddleName, eLastName, eGender, eAge, eEmail, eDesignation, eSkills, eExperience, eSalary);
     

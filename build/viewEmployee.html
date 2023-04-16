@@ -80,7 +80,7 @@
             </div>
             <div class="row">
                 <div class="mb-5 col-4">
-                    <label for="age" class="form-label mt-1">Age&nbsp;</label>(<output></output>)
+                    <label for="age" class="form-label mt-1">Age&nbsp;&nbsp;</label><input type="text" class="text-center w-25" id="ageVal">
                     <input type="range" id="age" class="form-range" min="20" max="50" step="1" value="0" oninput="this.previousElementSibling.value = this.value">
                 </div>
                 <div class="mb-5 col">
@@ -99,7 +99,7 @@
             </div>
             <div class="row">
                 <div class="mb-5 col-4">
-                    <label for="experience" class="form-label mt-1">Experience&nbsp;</label>(<output></output>)
+                    <label for="experience" class="form-label mt-1">Experience&nbsp;&nbsp;</label><input type="text" class="text-center w-25" id="experienceVal">
                     <input type="range" id="experience" class="form-range" min="1" max="30" step="0.5" value="0" oninput="this.previousElementSibling.value = this.value">
                 </div>
                 <div class="mb-5 col-4">
@@ -115,7 +115,7 @@
 
         <div id="salary" class="row my-4 text-center">
             <div class="col">
-                <button class="btn btn-primary mx-3">Update</button> 
+                <button class="btn btn-primary mx-3" onclick="updateEdetails()">Update</button> 
                 <button class="btn btn-primary">Delete</button>
             </div>
         </div>
