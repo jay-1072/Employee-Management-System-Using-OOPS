@@ -3,6 +3,7 @@ var url;
 var eid;
 var indx;
 var Record;
+var base64Img;
 var find = function (empId) {
     Record = JSON.parse(localStorage.getItem('EmployeeRecords'));
     console.log(Record);
@@ -13,9 +14,36 @@ var find = function (empId) {
     }
     return -1;
 };
+var eImage = document.getElementById('profile');
+eImage.addEventListener('change', function (event) {
+    var image = event.target.files[0];
+    var reader = new FileReader();
+    reader.readAsDataURL(image);
+    reader.addEventListener('load', function () {
+        base64Img = reader.result;
+    });
+});
+var makeEditable = function () {
+    document.getElementById('id').disabled = false;
+    document.getElementById('profile').disabled = false;
+    document.getElementById('about').innerHTML;
+    document.getElementById('fname').disabled = false;
+    document.getElementById('mname').disabled = false;
+    document.getElementById('lname').disabled = false;
+    document.getElementById('gender').disabled = false;
+    document.getElementById('email').disabled = false;
+    document.getElementById('experience').disabled = false;
+    document.getElementById('experienceVal').disabled = false;
+    document.getElementById('age').disabled = false;
+    document.getElementById('ageVal').disabled = false;
+    document.getElementById('skills').disabled = false;
+    document.getElementById('salary').disabled = false;
+    document.getElementById('designation').disabled = false;
+};
 var updateEdetails = function () {
     Record = JSON.parse(localStorage.getItem('EmployeeRecords'));
     var id = document.getElementById('id').value;
+    var profile = document.getElementById('profile').value;
     var about = document.getElementById('about').innerHTML;
     var fname = document.getElementById('fname').value;
     var mname = document.getElementById('mname').value;
@@ -28,6 +56,7 @@ var updateEdetails = function () {
     var salary = document.getElementById('salary').value;
     var designation = document.getElementById('designation').value;
     Record[indx]._id = id;
+    Record[indx]._profile = profile != '' ? base64Img : Record[indx]._profile;
     Record[indx]._about = about;
     Record[indx]._firstName = fname;
     Record[indx]._middleName = mname;
@@ -42,6 +71,14 @@ var updateEdetails = function () {
     localStorage.setItem('EmployeeRecords', JSON.stringify(Record));
     location.href = "index.html";
 };
+var delEmp = function () {
+    if (confirm('Are you sure you want to delete this record?')) {
+        Record = JSON.parse(localStorage.getItem('EmployeeRecords'));
+        Record.splice(indx, 1);
+        localStorage.setItem('EmployeeRecords', JSON.stringify(Record));
+        location.href = "index.html";
+    }
+};
 (function () {
     url = new URL(window.location.href);
     eid = url.searchParams.get("id");
@@ -50,6 +87,7 @@ var updateEdetails = function () {
     indx = find(eid);
     Record = JSON.parse(localStorage.getItem('EmployeeRecords'));
     document.getElementById('id').value = Record[indx]._id;
+    document.getElementById('empImage').src = Record[indx]._profile;
     // (<any>document.getElementById('profile'))!.value = 'C:/images/abc.png';
     document.getElementById('about').innerHTML = Record[indx]._about;
     document.getElementById('fname').value = Record[indx]._firstName;

@@ -213,10 +213,8 @@ var Employee = /** @class */ (function () {
                 html += "<td class=\"table-data text-center\">" + employeeRecord[i]._designation + "</td>";
                 html += "<td class=\"table-data text-center\">" + employeeRecord[i]._skills + "</td>";
                 html += "<td class=\"table-data text-center\">" + employeeRecord[i]._experience + "</td>";
-                html += "<td class=\"table-data text-center\">" + employeeRecord[i]._salary + "</td>";
+                html += "<td class=\"table-data text-center\">" + employeeRecord[i]._salary + "&nbsp;&nbsp;<i class=\"fa fa-indian-rupee-sign\"></i>" + "</td>";
                 html += "<td class=\"table-data text-center\">" + "<button onclick=\"location.href='viewEmployee.html?id=".concat(employeeRecord[i]._id, "'\" class=\"btn btn-light text-center viewIcon\"><i class=\"fa fa-light fa-eye\"></i></button>") + "</td>";
-                html += "<td class=\"table-data text-center\">" + "<button onclick=\"updateIcon(".concat(employeeRecord[i]._id, ")\" class=\"btn btn-light table-data text-center updateIcon\" data-bs-toggle=\"modal\" data-bs-target=\"#newPrdModal\"><i class=\"fa-solid fa-pen-to-square\"></i></button>") + "</td>";
-                html += "<td class=\"table-data text-center\">" + "<button onclick=\"deleteIcon(".concat(employeeRecord[i]._id, ")\" class=\"btn btn-light text-center deleteIcon\"><i class=\"fa-solid fa-trash\"></i></button>") + "</td>";
                 html += "</tr>";
             }
             document.getElementById('tblBody').innerHTML = html;
@@ -227,7 +225,7 @@ var Employee = /** @class */ (function () {
 var findEmployee = function (empId) {
     var employeeRecord = JSON.parse(localStorage.getItem('EmployeeRecords'));
     for (var i = 0; i < employeeRecord.length; i++) {
-        if (empId === employeeRecord[i]._id) {
+        if (empId == employeeRecord[i]._id) {
             return i;
         }
     }
@@ -239,12 +237,60 @@ var html = "";
 var employeeObj;
 var index;
 var base64;
+var nameRegexp = /^\S*$/;
 var submitBtn = document.getElementById('submitBtn');
 var modal = document.getElementById('newPrdModal');
 (function () {
     Employee.viewEmployees();
 })();
-var Add_Update = function () {
+function valid(eObj) {
+    var flag = true;
+    console.log(eObj._about);
+    if (flag) {
+        if (isNaN(eObj._id)) {
+            document.getElementById("eIdError").innerHTML = "please enter employee id";
+            document.getElementById("empId").style.border = "1px solid red";
+            flag = false;
+        }
+        if (eObj._about == '') {
+            document.getElementById("eAboutError").innerHTML = "please enter employee description";
+            document.getElementById("empAbout").style.border = "1px solid red";
+            flag = false;
+        }
+        if (eObj._firstName == '') {
+            document.getElementById("eFnameError").innerHTML = "please enter first name";
+            document.getElementById("empFname").style.border = "1px solid red";
+            flag = false;
+        }
+        if (eObj._middleName == '') {
+            document.getElementById("eMnameError").innerHTML = "please enter middle name";
+            document.getElementById("empMname").style.border = "1px solid red";
+            flag = false;
+        }
+        if (eObj._middleName == '') {
+            document.getElementById("eLnameError").innerHTML = "please enter last name";
+            document.getElementById("empLname").style.border = "1px solid red";
+            flag = false;
+        }
+    }
+    if (!nameRegexp.test(eObj._firstName)) {
+        document.getElementById('eFnameError').innerHTML = "white space is not allowed";
+        document.getElementById('empFname').style.border = "1px solid red";
+        flag = false;
+    }
+    if (!nameRegexp.test(eObj._middleName)) {
+        document.getElementById('eMnameError').innerHTML = "white space is not allowed";
+        document.getElementById('empMname').style.border = "1px solid red";
+        flag = false;
+    }
+    if (!nameRegexp.test(eObj._lastName)) {
+        document.getElementById('eLnameError').innerHTML = "white space is not allowed";
+        document.getElementById('empLname').style.border = "1px solid red";
+        flag = false;
+    }
+    return flag;
+}
+submitBtn.onclick = function (event) {
     var eId = document.getElementById('empId');
     var eAbout = document.getElementById('empAbout');
     var eProfile = document.getElementById('empProfile');
@@ -272,22 +318,24 @@ var Add_Update = function () {
     eExperience = eExperience.value;
     eSalary = eSalary.value;
     employeeObj = new Employee(eId, eProfile, eAbout, eFirstName, eMiddleName, eLastName, eGender, eAge, eEmail, eDesignation, eSkills, eExperience, eSalary);
-    if (submitBtn.value === 'Update') {
-        employeeObj.updateEmployee(employeeObj, index);
-        showToastMessage('Update');
+    if (!valid(employeeObj)) {
+        event.preventDefault();
     }
     else {
-        if (!checkEmployeeId(eId)) {
-            employeeObj.addEmployee(employeeObj);
-            showToastMessage('Add');
+        if (submitBtn.value === 'Update') {
+            employeeObj.updateEmployee(employeeObj, index);
+            // showToastMessage('Update');
         }
         else {
-            alert("Employee Id already exist");
+            if (!checkEmployeeId(eId)) {
+                employeeObj.addEmployee(employeeObj);
+                // showToastMessage('Add');
+            }
+            else {
+                alert("Employee Id already exist");
+            }
         }
     }
-};
-submitBtn.onclick = function () {
-    Add_Update();
 };
 function updateIcon(eid) {
     eid = parseInt(eid);
@@ -296,12 +344,18 @@ function updateIcon(eid) {
     index = findEmployee(eid);
     employeeRecord = JSON.parse(localStorage.getItem(EMPLOYEE));
     document.getElementById('empId').value = employeeRecord[index]._id;
-    // (<any>document.getElementById('empProfile'))!.value = employeeRecord[index]._profile;
+    document.getElementById('empAbout').value = employeeRecord[index]._about;
+    // (<any>document.getElementById('empProfile'))!.value =  employeeRecord[index]._profile;
     document.getElementById('empFname').value = employeeRecord[index]._firstName;
     document.getElementById('empMname').value = employeeRecord[index]._middleName;
     document.getElementById('empLname').value = employeeRecord[index]._lastName;
     document.getElementById('empGender').value = employeeRecord[index]._gender;
     document.getElementById('empEmail').value = employeeRecord[index]._email;
+    document.getElementById('ageValue').value = employeeRecord[index]._age;
+    document.getElementById('empDesignation').value = employeeRecord[index]._designation;
+    document.getElementById('empSkills').value = employeeRecord[index]._skills;
+    document.getElementById('experienceValue').value = employeeRecord[index]._experience;
+    document.getElementById('empSalary').value = employeeRecord[index]._salary;
 }
 function deleteIcon(eid) {
     eid = parseInt(eid);

@@ -77,39 +77,45 @@
                         <!-- for employee id -->
                         <div class="mb-4">
                             <label class="mb-1" for="empId">Employee Id</label>
-                            <input type="number" class="form-control" id="empId" name="empId">
+                            <input type="text" class="form-control shadow-none" id="empId" name="empId">
+                            <strong id="eIdError" class="text-danger font-wight-bold"></strong>
                         </div>
                         <!-- for employee description -->
                         
                         <div class="mb-4">
                             <label class="form-label mb-1" for="empAbout">About</label>
-                            <textarea class="form-control" id="empAbout">
+                            <textarea class="form-control shadow-none" id="empAbout">
                             </textarea>
+                            <strong id="eAboutError" class="text-danger font-wight-bold"></strong>
                         </div>
                         <!-- for employee profile -->
                         <div class="mb-4">
                             <label for="empProfile" class="form-label">Profile</label>
-                            <input class="form-control" type="file" id="empProfile">
+                            <input class="form-control shadow-none" type="file" id="empProfile">
                         </div>
                         <!-- for employee first name -->
                         <div class="mb-4">
                             <label class="mb-1" for="empFname">First Name</label>
-                            <input type="text" class="form-control" id="empFname" name="empFname">
+                            <input type="text" class="form-control shadow-none" id="empFname" name="empFname"> 
+                            <strong id="eFnameError" class="text-danger font-wight-bold"></strong>
                         </div>
                         <!-- for employee middle name -->
                         <div class="mb-4">
                             <label class="mb-1" for="empMname">Middle Name</label>
-                            <input type="text" class="form-control" id="empMname" name="empMname">
+                            <input type="text" class="form-control shadow-none" id="empMname" name="empMname">
+                            <strong id="eMnameError" class="text-danger font-wight-bold"></strong>
                         </div>
                         <!-- for employee last name -->
                         <div class="mb-4">
                             <label class="mb-1" for="empLname">Last Name</label>
-                            <input type="text" class="form-control" id="empLname" name="empLname">
+                            <input type="text" class="form-control shadow-none" id="empLname" name="empLname">
+                            <strong id="eLnameError" class="text-danger font-wight-bold"></strong>
                         </div>
                         <!-- for employee email -->
                         <div class="mb-4">
                             <label class="mb-1" for="empEmail">Email</label>
-                            <input type="text" class="form-control" id="empEmail" name="empEmail">
+                            <input type="text" class="form-control shadow-none" id="empEmail" name="empEmail">
+                            <strong id="eEmailError" class="text-danger font-wight-bold"></strong>
                         </div>
 
                         <div class="mb-4">
@@ -119,7 +125,7 @@
 
                         <div class="input-group mb-4">
                             <label class="input-group-text" for="empGender">Gender</label>
-                            <select class="form-select" id="empGender">
+                            <select class="form-select shadow-none" id="empGender">
                                 <option selected>Choose...</option>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
@@ -129,22 +135,24 @@
 
                         <div class="mb-4">
                             <label for="empDesignation" class="form-label">Designation</label>
-                            <input type="text" id="empDesignation" name="empDesignation" class="form-control">
+                            <input type="text" id="empDesignation" name="empDesignation" class="form-control shadow-none">
                         </div>
 
                         <div class="mb-4">
                             <label for="empSkills" class="form-label">Skills&nbsp;</label>
-                            <input type="text" id="empSkills" name="empSkills" class="form-control">
+                            <input type="text" id="empSkills" name="empSkills" class="form-control shadow-none">
+                            <strong id="eSkillsError" class="text-danger font-wight-bold"></strong>
                         </div>
 
                         <div class="mb-4">
                             <label for="empExperience" class="form-label">Experience&nbsp;&nbsp;</label><input type="text" class="text-center w-25" id="experienceValue">
-                            <input type="range" class="form-range" min="0" max="30" step="0.5" id="empExperience" oninput="this.previousElementSibling.value = this.value">
+                            <input type="range" class="form-range" min="0" max="30" step="0.5" id="empExperience" value="0" oninput="this.previousElementSibling.value = this.value">
                         </div>
 
                         <div class="mb-4">
                             <label for="empSalary" class="form-label">Salary</label>
-                            <input type="text" id="empSalary" name="empSalary" class="form-control">
+                            <input type="text" id="empSalary" name="empSalary" class="form-control shadow-none">
+                            <strong id="eSalaryError" class="text-danger font-wight-bold"></strong>
                         </div>
 
                         <!-- modal footer -->
@@ -189,15 +197,13 @@
                     <th scope="col" class="text-center">Middle&nbsp;Name</th>
                     <th scope="col" class="text-center">Last&nbsp;Name</th>
                     <th scope="col" class="text-center">Gender</th>
-                    <th scope="col" class="text-center">Age</th>
+                    <th scope="col" class="text-center">Age&nbsp;(Years)</th>
                     <th scope="col" class="text-center">Email</th>
                     <th scope="col" class="text-center">Designation</th>
                     <th scope="col" class="text-center">Skills</th>
-                    <th scope="col" class="text-center">Experience</th>
+                    <th scope="col" class="text-center">Experience&nbsp;(Years)</th>
                     <th scope="col" class="text-center">Salary</th>
                     <th scope="col" class="text-center">View</th>
-                    <th scope="col" class="text-center">Update</th>
-                    <th scope="col" class="text-center">Delete</th>
                 </tr>
             </thead>
             <tbody id="tblBody">

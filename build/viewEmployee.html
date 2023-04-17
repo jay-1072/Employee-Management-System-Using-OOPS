@@ -42,7 +42,7 @@
     <div class="card container my-5" style="width: 100%; height: 100%;">
 
         <div class="mt-4 mb-4 text-center">
-            <img src="https://thebhavinshah.com/wp-content/uploads/2016/09/For-Employees.jpg" style="height: 180px; width:180px; border-radius: 100px; border: 1px solid black;" alt="...">
+            <img id="empImage" src="" style="height: 180px; width:180px; border-radius: 100px; border: 1px solid black;" alt="...">
         </div>
 
         <div class="mt-1 mb-5 mx-5 px-5" id="about">
@@ -53,39 +53,39 @@
             <div class="row">
                 <div class="mb-5 col-4">
                     <label class="mb-1" for="id">Employee Id</label>
-                    <input type="number" class="form-control" id="id" name="id">
+                    <input type="number" class="form-control" id="id" name="id" disabled>
                 </div>
                 <div class="mb-5 col-4">
                     <label for="profile" class="form-label mb-1">Profile</label>
-                    <input class="form-control" type="file" id="profile">
+                    <input class="form-control" type="file" id="profile" disabled>
                 </div>
                 <div class="mb-5 col-4">
                     <label class="mb-1" for="email">Email</label>
-                    <input type="text" class="form-control" id="email" name="email">
+                    <input type="text" class="form-control" id="email" name="email" disabled>
                 </div>
             </div>
             <div class="row">
                 <div class="mb-5 col-4">
                     <label class="mb-1" for="fname">First Name</label>
-                    <input type="text" class="form-control" id="fname" name="fname">
+                    <input type="text" class="form-control" id="fname" name="fname" disabled>
                 </div>
                 <div class="mb-5 col-4">
                     <label class="mb-1" for="mname">Middle Name</label>
-                    <input type="text" class="form-control" id="mname" name="mname">
+                    <input type="text" class="form-control" id="mname" name="mname" disabled>
                 </div>
                 <div class="mb-5 col-4">
                     <label class="mb-1" for="lname">Last Name</label>
-                    <input type="text" class="form-control" id="lname" name="lname">
+                    <input type="text" class="form-control" id="lname" name="lname" disabled>
                 </div>
             </div>
             <div class="row">
                 <div class="mb-5 col-4">
-                    <label for="age" class="form-label mt-1">Age&nbsp;&nbsp;</label><input type="text" class="text-center w-25" id="ageVal">
-                    <input type="range" id="age" class="form-range" min="20" max="50" step="1" value="0" oninput="this.previousElementSibling.value = this.value">
+                    <label for="age" class="form-label mt-1">Age&nbsp;&nbsp;</label><input type="text" class="text-center w-25" id="ageVal" disabled>
+                    <input type="range" id="age" class="form-range" min="20" max="50" step="1" value="0" oninput="this.previousElementSibling.value = this.value" disabled>
                 </div>
                 <div class="mb-5 col">
                     <label class="mt-1" for="gender">Gender</label>
-                    <select class="form-select my-1" id="gender">
+                    <select class="form-select my-1" id="gender" disabled>
                         <option selected>Choose...</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
@@ -94,29 +94,30 @@
                 </div>
                 <div class="mb-5 col-4">
                     <label for="designation" class="form-label">Designation</label>
-                    <input type="text" id="designation" name="designation" class="form-control">
+                    <input type="text" id="designation" name="designation" class="form-control" disabled>
                 </div>
             </div>
             <div class="row">
                 <div class="mb-5 col-4">
-                    <label for="experience" class="form-label mt-1">Experience&nbsp;&nbsp;</label><input type="text" class="text-center w-25" id="experienceVal">
-                    <input type="range" id="experience" class="form-range" min="1" max="30" step="0.5" value="0" oninput="this.previousElementSibling.value = this.value">
+                    <label for="experience" class="form-label mt-1">Experience&nbsp;&nbsp;</label><input type="text" class="text-center w-25" id="experienceVal" disabled>
+                    <input type="range" id="experience" class="form-range" min="1" max="30" step="0.5" value="0" oninput="this.previousElementSibling.value = this.value" disabled>
                 </div>
                 <div class="mb-5 col-4">
                     <label for="skills" class="form-label">Skills&nbsp;</label>
-                    <input type="text" id="skills" name="skills" class="form-control">
+                    <input type="text" id="skills" name="skills" class="form-control" disabled>
                 </div>
                 <div class="mb-5 col-4">
                     <label for="salary" class="form-label">Salary</label>
-                    <input type="text" id="salary" name="salary" class="form-control">
+                    <input type="text" id="salary" name="salary" class="form-control" disabled>
                 </div>
             </div>
         </form>
 
         <div id="salary" class="row my-4 text-center">
             <div class="col">
-                <button class="btn btn-primary mx-3" onclick="updateEdetails()">Update</button> 
-                <button class="btn btn-primary">Delete</button>
+                <button class="btn btn-primary ms-3" onclick="makeEditable()">Edit</button>
+                <button class="btn btn-primary ms-3" onclick="updateEdetails()">Update</button> 
+                <button class="btn btn-primary ms-3" onclick="delEmp()">Delete</button>
             </div>
         </div>
         

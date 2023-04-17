@@ -213,10 +213,8 @@ class Employee implements EmployeeDetails.IEmployeeDetails, EmployeeMethods.IEmp
                     html += `<td class="table-data text-center">` + employeeRecord[i]._designation + `</td>`;
                     html += `<td class="table-data text-center">` + employeeRecord[i]._skills + `</td>`;
                     html += `<td class="table-data text-center">` + employeeRecord[i]._experience + `</td>`;
-                    html += `<td class="table-data text-center">` + employeeRecord[i]._salary + `</td>`;
+                    html += `<td class="table-data text-center">` + employeeRecord[i]._salary + `&nbsp;&nbsp;<i class="fa fa-indian-rupee-sign"></i>` + `</td>`;
                     html += `<td class="table-data text-center">` + `<button onclick="location.href='viewEmployee.html?id=${employeeRecord[i]._id}'" class="btn btn-light text-center viewIcon"><i class="fa fa-light fa-eye"></i></button>` + `</td>`;
-                    html += `<td class="table-data text-center">` + `<button onclick="updateIcon(${employeeRecord[i]._id})" class="btn btn-light table-data text-center updateIcon" data-bs-toggle="modal" data-bs-target="#newPrdModal"><i class="fa-solid fa-pen-to-square"></i></button>` + `</td>`;
-                    html += `<td class="table-data text-center">` + `<button onclick="deleteIcon(${employeeRecord[i]._id})" class="btn btn-light text-center deleteIcon"><i class="fa-solid fa-trash"></i></button>` + `</td>`;                                     
                     html += `</tr>`;
                 }
                 
@@ -228,7 +226,7 @@ class Employee implements EmployeeDetails.IEmployeeDetails, EmployeeMethods.IEmp
 let findEmployee = (empId:number):number => {
     let employeeRecord = JSON.parse(localStorage.getItem('EmployeeRecords')!);
     for(let i=0; i<employeeRecord.length; i++) {
-        if(empId===employeeRecord[i]._id) {
+        if(empId==employeeRecord[i]._id) {
             return i;
         }
     }
@@ -241,6 +239,7 @@ let html = "";
 let employeeObj:Employee;
 let index:number;
 let base64:any;
+let nameRegexp = /^\S*$/;
 
 const submitBtn = <HTMLInputElement>document.getElementById('submitBtn');
 const modal = <any>document.getElementById('newPrdModal');
@@ -249,7 +248,60 @@ const modal = <any>document.getElementById('newPrdModal');
     Employee.viewEmployees();
 })();
 
-let Add_Update = ():void => {
+function valid(eObj:Employee):boolean{
+    let flag:boolean = true;
+    console.log(eObj._about);
+
+    if(flag) {
+        if (isNaN(eObj._id)) {
+            document.getElementById("eIdError").innerHTML = "please enter employee id";
+            document.getElementById("empId").style.border = "1px solid red";
+            flag = false;
+        }
+        if (eObj._about == '') {
+            document.getElementById("eAboutError").innerHTML = "please enter employee description";
+            document.getElementById("empAbout").style.border = "1px solid red";
+            flag = false;
+        }
+        if (eObj._firstName == '') {
+            document.getElementById("eFnameError").innerHTML = "please enter first name";
+            document.getElementById("empFname").style.border = "1px solid red";
+            flag = false;
+        }
+        if (eObj._middleName == '') {
+            document.getElementById("eMnameError").innerHTML = "please enter middle name";
+            document.getElementById("empMname").style.border = "1px solid red";
+            flag = false;
+        }
+        if (eObj._middleName == '') {
+            document.getElementById("eLnameError").innerHTML = "please enter last name";
+            document.getElementById("empLname").style.border = "1px solid red";
+            flag = false;
+        }
+    }
+
+
+
+    if(!nameRegexp.test(eObj._firstName)) {
+        document.getElementById('eFnameError')!.innerHTML = "white space is not allowed";
+        document.getElementById('empFname')!.style.border = "1px solid red"; 
+        flag = false;
+    }
+    if(!nameRegexp.test(eObj._middleName)) {
+        document.getElementById('eMnameError')!.innerHTML = "white space is not allowed";
+        document.getElementById('empMname')!.style.border = "1px solid red"; 
+        flag = false;
+    }
+    if(!nameRegexp.test(eObj._lastName)) {
+        document.getElementById('eLnameError')!.innerHTML = "white space is not allowed";
+        document.getElementById('empLname')!.style.border = "1px solid red"; 
+        flag = false;
+    }
+
+    return flag;
+}
+
+submitBtn.onclick = (event):void => {
     let eId:any = <HTMLInputElement>document.getElementById('empId');
     let eAbout:any = <HTMLInputElement>document.getElementById('empAbout');
     let eProfile:any = <HTMLInputElement>document.getElementById('empProfile');
@@ -279,24 +331,25 @@ let Add_Update = ():void => {
     eSalary = eSalary.value;
     
     employeeObj = new Employee(eId, eProfile, eAbout, eFirstName, eMiddleName, eLastName, eGender, eAge, eEmail, eDesignation, eSkills, eExperience, eSalary);
-    
-    if(submitBtn.value==='Update') {
-        employeeObj.updateEmployee(employeeObj, index);
-        showToastMessage('Update');
+
+    if(!valid(employeeObj)) {
+        event.preventDefault();
     }
     else {
-        if(!checkEmployeeId(eId)) {
-            employeeObj.addEmployee(employeeObj);
-            showToastMessage('Add');
+        if(submitBtn.value==='Update') {
+            employeeObj.updateEmployee(employeeObj, index);
+            // showToastMessage('Update');
         }
         else {
-            alert("Employee Id already exist");
+            if(!checkEmployeeId(eId)) {
+                employeeObj.addEmployee(employeeObj);
+                // showToastMessage('Add');
+            }
+            else {
+                alert("Employee Id already exist");
+            }
         }
     }
-}
-
-submitBtn.onclick = ():void => {
-    Add_Update();
 }
 
 function updateIcon(eid:string|number) {
@@ -307,12 +360,18 @@ function updateIcon(eid:string|number) {
 
     employeeRecord = JSON.parse(localStorage.getItem(EMPLOYEE)!);
     (<any>document.getElementById('empId'))!.value = employeeRecord[index]._id;
-    // (<any>document.getElementById('empProfile'))!.value = employeeRecord[index]._profile;
+    (<any>document.getElementById('empAbout'))!.value = employeeRecord[index]._about;
+    // (<any>document.getElementById('empProfile'))!.value =  employeeRecord[index]._profile;
     (<any>document.getElementById('empFname'))!.value = employeeRecord[index]._firstName;
     (<any>document.getElementById('empMname'))!.value = employeeRecord[index]._middleName;
     (<any>document.getElementById('empLname'))!.value = employeeRecord[index]._lastName;
     (<any>document.getElementById('empGender'))!.value = employeeRecord[index]._gender;
     (<any>document.getElementById('empEmail'))!.value = employeeRecord[index]._email;
+    (<any>document.getElementById('ageValue'))!.value = employeeRecord[index]._age;
+    (<any>document.getElementById('empDesignation'))!.value = employeeRecord[index]._designation;
+    (<any>document.getElementById('empSkills'))!.value = employeeRecord[index]._skills;
+    (<any>document.getElementById('experienceValue'))!.value = employeeRecord[index]._experience;
+    (<any>document.getElementById('empSalary'))!.value = employeeRecord[index]._salary;
 }
 
 function deleteIcon(eid:string|number) {
