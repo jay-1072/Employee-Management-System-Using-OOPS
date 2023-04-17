@@ -250,7 +250,7 @@ const modal = <any>document.getElementById('newPrdModal');
 
 function valid(eObj:Employee):boolean{
     let flag:boolean = true;
-    console.log(eObj._about);
+    console.log(eObj._experience);
 
     if(flag) {
         if (isNaN(eObj._id)) {
@@ -278,9 +278,35 @@ function valid(eObj:Employee):boolean{
             document.getElementById("empLname").style.border = "1px solid red";
             flag = false;
         }
+        if (eObj._email == '') {
+            document.getElementById("eEmailError").innerHTML = "please enter email id";
+            document.getElementById("empEmail").style.border = "1px solid red";
+            flag = false;
+        }
+        if (eObj._designation == '') {
+            document.getElementById("eDesignationError").innerHTML = "please enter employee designation";
+            document.getElementById("empDesignation").style.border = "1px solid red";
+            flag = false;
+        }
+        if (!eObj._skills) {
+            document.getElementById("eSkillsError").innerHTML = "please enter employee skills";
+            document.getElementById("empSkills").style.border = "1px solid red";
+            flag = false;
+        }
+        if (!eObj._age) {
+            document.getElementById("eAgeError").innerHTML = "please enter employee age";
+            flag = false;
+        }
+        if (eObj._experience==0) {
+            document.getElementById("eExperienceError").innerHTML = "please enter employee experience";
+            flag = false;
+        }
+        if (!eObj._salary) {
+            document.getElementById("eSalaryError").innerHTML = "please enter employee salary";
+            document.getElementById("empSalary").style.border = "1px solid red";
+            flag = false;
+        }
     }
-
-
 
     if(!nameRegexp.test(eObj._firstName)) {
         document.getElementById('eFnameError')!.innerHTML = "white space is not allowed";
@@ -309,7 +335,7 @@ submitBtn.onclick = (event):void => {
     let eMiddleName:any = <HTMLInputElement>document.getElementById('empMname');
     let eLastName:any = <HTMLInputElement>document.getElementById('empLname');
     let eGender:any = <HTMLInputElement>document.getElementById('empGender');
-    let eAge:any = <HTMLInputElement>document.getElementById('empAge');
+    let eAge:any = <HTMLInputElement>document.getElementById('ageValue');
     let eEmail:any = <HTMLInputElement>document.getElementById('empEmail');
     let eDesignation:any = <HTMLInputElement>document.getElementById('empDesignation');
     let eSkills:any = <HTMLInputElement>document.getElementById('empSkills');

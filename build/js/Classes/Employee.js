@@ -245,7 +245,7 @@ var modal = document.getElementById('newPrdModal');
 })();
 function valid(eObj) {
     var flag = true;
-    console.log(eObj._about);
+    console.log(eObj._experience);
     if (flag) {
         if (isNaN(eObj._id)) {
             document.getElementById("eIdError").innerHTML = "please enter employee id";
@@ -270,6 +270,34 @@ function valid(eObj) {
         if (eObj._middleName == '') {
             document.getElementById("eLnameError").innerHTML = "please enter last name";
             document.getElementById("empLname").style.border = "1px solid red";
+            flag = false;
+        }
+        if (eObj._email == '') {
+            document.getElementById("eEmailError").innerHTML = "please enter email id";
+            document.getElementById("empEmail").style.border = "1px solid red";
+            flag = false;
+        }
+        if (eObj._designation == '') {
+            document.getElementById("eDesignationError").innerHTML = "please enter employee designation";
+            document.getElementById("empDesignation").style.border = "1px solid red";
+            flag = false;
+        }
+        if (!eObj._skills) {
+            document.getElementById("eSkillsError").innerHTML = "please enter employee skills";
+            document.getElementById("empSkills").style.border = "1px solid red";
+            flag = false;
+        }
+        if (!eObj._age) {
+            document.getElementById("eAgeError").innerHTML = "please enter employee age";
+            flag = false;
+        }
+        if (eObj._experience == 0) {
+            document.getElementById("eExperienceError").innerHTML = "please enter employee experience";
+            flag = false;
+        }
+        if (!eObj._salary) {
+            document.getElementById("eSalaryError").innerHTML = "please enter employee salary";
+            document.getElementById("empSalary").style.border = "1px solid red";
             flag = false;
         }
     }
@@ -298,7 +326,7 @@ submitBtn.onclick = function (event) {
     var eMiddleName = document.getElementById('empMname');
     var eLastName = document.getElementById('empLname');
     var eGender = document.getElementById('empGender');
-    var eAge = document.getElementById('empAge');
+    var eAge = document.getElementById('ageValue');
     var eEmail = document.getElementById('empEmail');
     var eDesignation = document.getElementById('empDesignation');
     var eSkills = document.getElementById('empSkills');
