@@ -115,9 +115,10 @@
 
         <div id="salary" class="row my-4 text-center">
             <div class="col">
-                <button class="btn btn-primary ms-3" onclick="makeEditable()">Edit</button>
-                <button class="btn btn-primary ms-3" onclick="updateEdetails()">Update</button> 
+                <button class="btn btn-primary ms-3" id="editBtn" onclick="makeEditable()">Edit</button>
+                <button class="btn btn-primary ms-3" id="updateBtn" onclick="updateEdetails()" hidden>Update</button> 
                 <button class="btn btn-primary ms-3" onclick="delEmp()">Delete</button>
+                <button class="btn btn-primary ms-3" id="backBtn" onclick="location.href='index.html'" hidden>Back</button>
             </div>
         </div>
         

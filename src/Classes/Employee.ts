@@ -165,7 +165,7 @@ class Employee implements EmployeeDetails.IEmployeeDetails, EmployeeMethods.IEmp
             this._salary = _salary;
         }
 
-        addEmployee =  (newEmployee: Employee):void => {
+        addEmployee = (newEmployee: Employee):void => {
             let tempVar:string | null = localStorage.getItem(EMPLOYEE);
 
             if(tempVar!=null) {
@@ -205,7 +205,6 @@ class Employee implements EmployeeDetails.IEmployeeDetails, EmployeeMethods.IEmp
                     html += `<td class="table-data text-center" >` + `<img style="max-width: 100%; heigth:auto;" src="${employeeRecord[i]._profile}">`  + `</td>`;
                     html += `<td class="table-data text-center">` + employeeRecord[i]._about + `</td>`;
                     html += `<td class="table-data text-center">` + employeeRecord[i]._firstName + `</td>`;
-                    html += `<td class="table-data text-center">` + employeeRecord[i]._middleName + `</td>`;
                     html += `<td class="table-data text-center">` + employeeRecord[i]._lastName + `</td>`;
                     html += `<td class="table-data text-center">` + employeeRecord[i]._gender + `</td>`;
                     html += `<td class="table-data text-center">` + employeeRecord[i]._age + `</td>`;
@@ -243,6 +242,70 @@ let nameRegexp = /^\S*$/;
 
 const submitBtn = <HTMLInputElement>document.getElementById('submitBtn');
 const modal = <any>document.getElementById('newPrdModal');
+
+const sortById_asc = <any>document.getElementById('sortById_asc');
+const sortByFname_asc = <any>document.getElementById('sortByFname_asc');
+const sortByLname_asc = <any>document.getElementById('sortByLname_asc');
+const sortByGender_asc = <any>document.getElementById('sortByGender_asc');
+const sortByAge_asc = <any>document.getElementById('sortByAge_asc');
+const sortByExperience_asc = <any>document.getElementById('sortByExperience_asc');
+const sortBySalary_asc = <any>document.getElementById('sortBySalary_asc');
+
+
+const sortById_desc = <any>document.getElementById('sortById_desc');
+const sortByFname_desc = <any>document.getElementById('sortByFname_desc');
+const sortByLname_desc = <any>document.getElementById('sortByLname_desc');
+const sortByGender_desc = <any>document.getElementById('sortByGender_desc');
+const sortByAge_desc = <any>document.getElementById('sortByAge_desc');
+const sortByExperience_desc = <any>document.getElementById('sortByExperience_desc');
+const sortBySalary_desc = <any>document.getElementById('sortBySalary_desc');
+
+
+sortById_asc.onclick = () => {
+    sortByEId('ASC');
+}
+sortByFname_asc.onclick = () => {
+    sortByFname('ASC', 'fname')
+}
+sortByLname_asc.onclick = () => {
+    sortByFname('ASC', 'lname')
+}
+sortByGender_asc.onclick = () => {
+    sortByGender('ASC')
+}
+sortByAge_asc.onclick = () => {
+    sortByAge('ASC')
+}
+sortByExperience_asc.onclick = () => {
+    sortByExperience('ASC')
+}
+sortBySalary_asc.onclick = () => {
+    sortBySalary('ASC')
+}
+
+
+sortById_desc.onclick = () => {
+    sortByEId('DESC');
+}
+sortByFname_desc.onclick = () => {
+    sortByFname('DESC', 'fname')
+}
+sortByLname_desc.onclick = () => {
+    sortByFname('DESC', 'lname')
+}
+sortByGender_desc.onclick = () => {
+    sortByGender('DESC');
+}
+sortByAge_desc.onclick = () => {
+    sortByAge('DESC');
+}
+sortByExperience_desc.onclick = () => {
+    sortByExperience('DESC');
+}
+sortBySalary_desc.onclick = () => {
+    sortBySalary('DESC');
+}
+
 
 (() => {
     Employee.viewEmployees();
@@ -364,12 +427,13 @@ submitBtn.onclick = (event):void => {
     else {
         if(submitBtn.value==='Update') {
             employeeObj.updateEmployee(employeeObj, index);
-            // showToastMessage('Update');
+            showToastMessage('Update');
         }
         else {
             if(!checkEmployeeId(eId)) {
                 employeeObj.addEmployee(employeeObj);
-                // showToastMessage('Add');
+                event.preventDefault();
+                showToastMessage('Add');
             }
             else {
                 alert("Employee Id already exist");
@@ -378,36 +442,36 @@ submitBtn.onclick = (event):void => {
     }
 }
 
-function updateIcon(eid:string|number) {
-    eid = parseInt(eid as string);
-    (<HTMLElement>document.getElementById('newPrdModalLabel')!).innerHTML = 'Update Employee';
-    submitBtn.value = 'Update';
-    index = findEmployee(eid);
+// function updateIcon(eid:string|number) {
+//     eid = parseInt(eid as string);
+//     (<HTMLElement>document.getElementById('newPrdModalLabel')!).innerHTML = 'Update Employee';
+//     submitBtn.value = 'Update';
+//     index = findEmployee(eid);
 
-    employeeRecord = JSON.parse(localStorage.getItem(EMPLOYEE)!);
-    (<any>document.getElementById('empId'))!.value = employeeRecord[index]._id;
-    (<any>document.getElementById('empAbout'))!.value = employeeRecord[index]._about;
-    // (<any>document.getElementById('empProfile'))!.value =  employeeRecord[index]._profile;
-    (<any>document.getElementById('empFname'))!.value = employeeRecord[index]._firstName;
-    (<any>document.getElementById('empMname'))!.value = employeeRecord[index]._middleName;
-    (<any>document.getElementById('empLname'))!.value = employeeRecord[index]._lastName;
-    (<any>document.getElementById('empGender'))!.value = employeeRecord[index]._gender;
-    (<any>document.getElementById('empEmail'))!.value = employeeRecord[index]._email;
-    (<any>document.getElementById('ageValue'))!.value = employeeRecord[index]._age;
-    (<any>document.getElementById('empDesignation'))!.value = employeeRecord[index]._designation;
-    (<any>document.getElementById('empSkills'))!.value = employeeRecord[index]._skills;
-    (<any>document.getElementById('experienceValue'))!.value = employeeRecord[index]._experience;
-    (<any>document.getElementById('empSalary'))!.value = employeeRecord[index]._salary;
-}
+//     employeeRecord = JSON.parse(localStorage.getItem(EMPLOYEE)!);
+//     (<any>document.getElementById('empId'))!.value = employeeRecord[index]._id;
+//     (<any>document.getElementById('empAbout'))!.value = employeeRecord[index]._about;
+//     // (<any>document.getElementById('empProfile'))!.value =  employeeRecord[index]._profile;
+//     (<any>document.getElementById('empFname'))!.value = employeeRecord[index]._firstName;
+//     (<any>document.getElementById('empMname'))!.value = employeeRecord[index]._middleName;
+//     (<any>document.getElementById('empLname'))!.value = employeeRecord[index]._lastName;
+//     (<any>document.getElementById('empGender'))!.value = employeeRecord[index]._gender;
+//     (<any>document.getElementById('empEmail'))!.value = employeeRecord[index]._email;
+//     (<any>document.getElementById('ageValue'))!.value = employeeRecord[index]._age;
+//     (<any>document.getElementById('empDesignation'))!.value = employeeRecord[index]._designation;
+//     (<any>document.getElementById('empSkills'))!.value = employeeRecord[index]._skills;
+//     (<any>document.getElementById('experienceValue'))!.value = employeeRecord[index]._experience;
+//     (<any>document.getElementById('empSalary'))!.value = employeeRecord[index]._salary;
+// }
 
-function deleteIcon(eid:string|number) {
-    eid = parseInt(eid as string);
-    index = findEmployee(eid);
-    if(confirm("Are you sure you want to delete this record?")) {
-        Employee.deleteEmployee(index);
-        showToastMessage('Delete');
-    }
-}
+// function deleteIcon(eid:string|number) {
+//     eid = parseInt(eid as string);
+//     index = findEmployee(eid);
+//     if(confirm("Are you sure you want to delete this record?")) {
+//         Employee.deleteEmployee(index);
+//         showToastMessage('Delete');
+//     }
+// }
 
 function checkEmployeeId(empId:number):boolean {
     let res:boolean = false;
@@ -428,13 +492,13 @@ function showToastMessage(msg:string) {
     let status = document.getElementById('statusMessage');
 
     if(msg==='Add') {
-        status!.innerHTML = 'Product added successfully.';
+        status!.innerHTML = 'Employee added successfully.';
     }
     else if(msg==='Update') {
-        status!.innerHTML = 'Product updated successfully.';
+        status!.innerHTML = 'Employee updated successfully.';
     }
     else {
-        status!.innerHTML = 'Product deleted successfully.';
+        status!.innerHTML = 'Employee deleted successfully.';
     }
 
     const toastTrigger = document.getElementById('submitBtn');
@@ -443,8 +507,9 @@ function showToastMessage(msg:string) {
     if (toastTrigger) {
         const toast = new bootstrap.Toast(Toast);
         toast.show();
+        setTimeout(()=>{location.reload()}, 1000);
     }
-    setTimeout(()=>{location.reload()}, 700);
+    
 }
 
 const modalClose = document.getElementById("modalClose");
@@ -468,3 +533,170 @@ profileInput.addEventListener('change', function(event:any) {
     });  
 });
 
+let sortByEId = (sortType:string) => {
+
+    let records = JSON.parse(localStorage.getItem('EmployeeRecords'));
+
+    if(sortType==='ASC') {
+        records.sort((e1:any, e2:any) => {
+            return parseInt(e1._id) - parseInt(e2._id);
+        })
+    }
+    else {
+        records.sort((e1:any, e2:any) => {
+            return parseInt(e2._id) - parseInt(e1._id);
+        })
+    }
+    
+    localStorage.setItem('EmployeeRecords', JSON.stringify(records));
+    Employee.viewEmployees();
+}
+
+let sortByFname = (sortType:string, sortField:string) => {
+    
+    let records = JSON.parse(localStorage.getItem('EmployeeRecords'));
+    let name1, name2;
+
+    if(sortType==='ASC') {
+        records.sort((e1:any, e2:any) => {
+
+            if(sortField=='fname') {
+                name1 = e1._firstName.toLowerCase(), name2 = e2._firstName.toLowerCase();
+            }
+            else {
+                name1 = e1._lastName.toLowerCase(), name2 = e2._lastName.toLowerCase();
+            }
+
+            if(name1<name2) {
+                return -1;
+            }
+    
+            return 0;
+        })
+    }
+    else {
+        records.sort((e1:any, e2:any) => {
+
+            name1 = e1._firstName.toLowerCase(), name2 = e2._firstName.toLowerCase();
+
+            if(sortField=='fname') {
+                name1 = e1._firstName.toLowerCase(), name2 = e2._firstName.toLowerCase();
+            }
+            else {
+                name1 = e1._lastName.toLowerCase(), name2 = e2._lastName.toLowerCase();
+            }
+    
+            if(name1>name2) {
+                return -1;
+            }
+    
+            return 0;
+        })
+    }
+
+    localStorage.setItem('EmployeeRecords', JSON.stringify(records));
+    Employee.viewEmployees();
+}
+
+let sortByGender = (sortType:string) => {
+
+    let records = JSON.parse(localStorage.getItem('EmployeeRecords'));
+
+    if(sortType==='ASC') {
+        records.sort((e1:any, e2:any) => {
+            if(e2._gender>e1._gender) {
+                return -1;
+            }
+            return 0;
+            
+        })
+    }
+    else {
+        records.sort((e1:any, e2:any) => {
+            if(e1._gender>e2._gender) {
+                return -1;
+            }
+            return 0;
+        })
+    }
+    
+    localStorage.setItem('EmployeeRecords', JSON.stringify(records));
+    Employee.viewEmployees();
+}
+
+let sortByAge = (sortType:string) => {
+
+    let records = JSON.parse(localStorage.getItem('EmployeeRecords'));
+
+    if(sortType==='ASC') {
+        records.sort((e1:any, e2:any) => {
+            if(e1._age<e2._age) {
+                return -1;
+            }
+            return 0;
+            
+        })
+    }
+    else {
+        records.sort((e1:any, e2:any) => {
+            if(e2._age<e1._age) {
+                return -1;
+            }
+            return 0;
+        })
+    }
+    
+    localStorage.setItem('EmployeeRecords', JSON.stringify(records));
+    Employee.viewEmployees();
+}
+
+let sortByExperience = (sortType:string) => {
+
+    let records = JSON.parse(localStorage.getItem('EmployeeRecords'));
+
+    if(sortType==='ASC') {
+        records.sort((e1:any, e2:any) => {
+            if(e1._experience<e2._experience) {
+                return -1;
+            }
+            return 0;
+            
+        })
+    }
+    else {
+        records.sort((e1:any, e2:any) => {
+            if(e2._experience<e1._experience) {
+                return -1;
+            }
+            return 0;
+        })
+    }
+    
+    localStorage.setItem('EmployeeRecords', JSON.stringify(records));
+    Employee.viewEmployees();
+}
+
+let sortBySalary = (sortType:string) => {
+
+    let records = JSON.parse(localStorage.getItem('EmployeeRecords'));
+
+    if(sortType==='ASC') {
+        records.sort((e1:any, e2:any) => {
+            if(e1._salary<e2._salary) {
+                return -1;
+            }
+            return 0;
+        })
+    }
+    else {
+        records.sort((e1:any, e2:any) => {
+            if(e2._salary<e1._salary) {
+                return -1;
+            }
+            return 0;
+        })
+    }
+    
+    localStorage.setItem('EmployeeRecords', JSON.stringify(records));
+    Employee.viewEmployees();
+}

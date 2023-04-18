@@ -205,7 +205,6 @@ var Employee = /** @class */ (function () {
                 html += "<td class=\"table-data text-center\" >" + "<img style=\"max-width: 100%; heigth:auto;\" src=\"".concat(employeeRecord[i]._profile, "\">") + "</td>";
                 html += "<td class=\"table-data text-center\">" + employeeRecord[i]._about + "</td>";
                 html += "<td class=\"table-data text-center\">" + employeeRecord[i]._firstName + "</td>";
-                html += "<td class=\"table-data text-center\">" + employeeRecord[i]._middleName + "</td>";
                 html += "<td class=\"table-data text-center\">" + employeeRecord[i]._lastName + "</td>";
                 html += "<td class=\"table-data text-center\">" + employeeRecord[i]._gender + "</td>";
                 html += "<td class=\"table-data text-center\">" + employeeRecord[i]._age + "</td>";
@@ -240,6 +239,62 @@ var base64;
 var nameRegexp = /^\S*$/;
 var submitBtn = document.getElementById('submitBtn');
 var modal = document.getElementById('newPrdModal');
+var sortById_asc = document.getElementById('sortById_asc');
+var sortByFname_asc = document.getElementById('sortByFname_asc');
+var sortByLname_asc = document.getElementById('sortByLname_asc');
+var sortByGender_asc = document.getElementById('sortByGender_asc');
+var sortByAge_asc = document.getElementById('sortByAge_asc');
+var sortByExperience_asc = document.getElementById('sortByExperience_asc');
+var sortBySalary_asc = document.getElementById('sortBySalary_asc');
+var sortById_desc = document.getElementById('sortById_desc');
+var sortByFname_desc = document.getElementById('sortByFname_desc');
+var sortByLname_desc = document.getElementById('sortByLname_desc');
+var sortByGender_desc = document.getElementById('sortByGender_desc');
+var sortByAge_desc = document.getElementById('sortByAge_desc');
+var sortByExperience_desc = document.getElementById('sortByExperience_desc');
+var sortBySalary_desc = document.getElementById('sortBySalary_desc');
+sortById_asc.onclick = function () {
+    sortByEId('ASC');
+};
+sortByFname_asc.onclick = function () {
+    sortByFname('ASC', 'fname');
+};
+sortByLname_asc.onclick = function () {
+    sortByFname('ASC', 'lname');
+};
+sortByGender_asc.onclick = function () {
+    sortByGender('ASC');
+};
+sortByAge_asc.onclick = function () {
+    sortByAge('ASC');
+};
+sortByExperience_asc.onclick = function () {
+    sortByExperience('ASC');
+};
+sortBySalary_asc.onclick = function () {
+    sortBySalary('ASC');
+};
+sortById_desc.onclick = function () {
+    sortByEId('DESC');
+};
+sortByFname_desc.onclick = function () {
+    sortByFname('DESC', 'fname');
+};
+sortByLname_desc.onclick = function () {
+    sortByFname('DESC', 'lname');
+};
+sortByGender_desc.onclick = function () {
+    sortByGender('DESC');
+};
+sortByAge_desc.onclick = function () {
+    sortByAge('DESC');
+};
+sortByExperience_desc.onclick = function () {
+    sortByExperience('DESC');
+};
+sortBySalary_desc.onclick = function () {
+    sortBySalary('DESC');
+};
 (function () {
     Employee.viewEmployees();
 })();
@@ -352,12 +407,13 @@ submitBtn.onclick = function (event) {
     else {
         if (submitBtn.value === 'Update') {
             employeeObj.updateEmployee(employeeObj, index);
-            // showToastMessage('Update');
+            showToastMessage('Update');
         }
         else {
             if (!checkEmployeeId(eId)) {
                 employeeObj.addEmployee(employeeObj);
-                // showToastMessage('Add');
+                event.preventDefault();
+                showToastMessage('Add');
             }
             else {
                 alert("Employee Id already exist");
@@ -365,34 +421,34 @@ submitBtn.onclick = function (event) {
         }
     }
 };
-function updateIcon(eid) {
-    eid = parseInt(eid);
-    document.getElementById('newPrdModalLabel').innerHTML = 'Update Employee';
-    submitBtn.value = 'Update';
-    index = findEmployee(eid);
-    employeeRecord = JSON.parse(localStorage.getItem(EMPLOYEE));
-    document.getElementById('empId').value = employeeRecord[index]._id;
-    document.getElementById('empAbout').value = employeeRecord[index]._about;
-    // (<any>document.getElementById('empProfile'))!.value =  employeeRecord[index]._profile;
-    document.getElementById('empFname').value = employeeRecord[index]._firstName;
-    document.getElementById('empMname').value = employeeRecord[index]._middleName;
-    document.getElementById('empLname').value = employeeRecord[index]._lastName;
-    document.getElementById('empGender').value = employeeRecord[index]._gender;
-    document.getElementById('empEmail').value = employeeRecord[index]._email;
-    document.getElementById('ageValue').value = employeeRecord[index]._age;
-    document.getElementById('empDesignation').value = employeeRecord[index]._designation;
-    document.getElementById('empSkills').value = employeeRecord[index]._skills;
-    document.getElementById('experienceValue').value = employeeRecord[index]._experience;
-    document.getElementById('empSalary').value = employeeRecord[index]._salary;
-}
-function deleteIcon(eid) {
-    eid = parseInt(eid);
-    index = findEmployee(eid);
-    if (confirm("Are you sure you want to delete this record?")) {
-        Employee.deleteEmployee(index);
-        showToastMessage('Delete');
-    }
-}
+// function updateIcon(eid:string|number) {
+//     eid = parseInt(eid as string);
+//     (<HTMLElement>document.getElementById('newPrdModalLabel')!).innerHTML = 'Update Employee';
+//     submitBtn.value = 'Update';
+//     index = findEmployee(eid);
+//     employeeRecord = JSON.parse(localStorage.getItem(EMPLOYEE)!);
+//     (<any>document.getElementById('empId'))!.value = employeeRecord[index]._id;
+//     (<any>document.getElementById('empAbout'))!.value = employeeRecord[index]._about;
+//     // (<any>document.getElementById('empProfile'))!.value =  employeeRecord[index]._profile;
+//     (<any>document.getElementById('empFname'))!.value = employeeRecord[index]._firstName;
+//     (<any>document.getElementById('empMname'))!.value = employeeRecord[index]._middleName;
+//     (<any>document.getElementById('empLname'))!.value = employeeRecord[index]._lastName;
+//     (<any>document.getElementById('empGender'))!.value = employeeRecord[index]._gender;
+//     (<any>document.getElementById('empEmail'))!.value = employeeRecord[index]._email;
+//     (<any>document.getElementById('ageValue'))!.value = employeeRecord[index]._age;
+//     (<any>document.getElementById('empDesignation'))!.value = employeeRecord[index]._designation;
+//     (<any>document.getElementById('empSkills'))!.value = employeeRecord[index]._skills;
+//     (<any>document.getElementById('experienceValue'))!.value = employeeRecord[index]._experience;
+//     (<any>document.getElementById('empSalary'))!.value = employeeRecord[index]._salary;
+// }
+// function deleteIcon(eid:string|number) {
+//     eid = parseInt(eid as string);
+//     index = findEmployee(eid);
+//     if(confirm("Are you sure you want to delete this record?")) {
+//         Employee.deleteEmployee(index);
+//         showToastMessage('Delete');
+//     }
+// }
 function checkEmployeeId(empId) {
     var res = false;
     if (localStorage.getItem(EMPLOYEE) != null) {
@@ -409,21 +465,21 @@ function checkEmployeeId(empId) {
 function showToastMessage(msg) {
     var status = document.getElementById('statusMessage');
     if (msg === 'Add') {
-        status.innerHTML = 'Product added successfully.';
+        status.innerHTML = 'Employee added successfully.';
     }
     else if (msg === 'Update') {
-        status.innerHTML = 'Product updated successfully.';
+        status.innerHTML = 'Employee updated successfully.';
     }
     else {
-        status.innerHTML = 'Product deleted successfully.';
+        status.innerHTML = 'Employee deleted successfully.';
     }
     var toastTrigger = document.getElementById('submitBtn');
     var Toast = document.getElementById('Toast');
     if (toastTrigger) {
         var toast = new bootstrap.Toast(Toast);
         toast.show();
+        setTimeout(function () { location.reload(); }, 1000);
     }
-    setTimeout(function () { location.reload(); }, 700);
 }
 var modalClose = document.getElementById("modalClose");
 modalClose.onclick = function () {
@@ -442,3 +498,137 @@ profileInput.addEventListener('change', function (event) {
         base64 = reader.result;
     });
 });
+var sortByEId = function (sortType) {
+    var records = JSON.parse(localStorage.getItem('EmployeeRecords'));
+    if (sortType === 'ASC') {
+        records.sort(function (e1, e2) {
+            return parseInt(e1._id) - parseInt(e2._id);
+        });
+    }
+    else {
+        records.sort(function (e1, e2) {
+            return parseInt(e2._id) - parseInt(e1._id);
+        });
+    }
+    localStorage.setItem('EmployeeRecords', JSON.stringify(records));
+    Employee.viewEmployees();
+};
+var sortByFname = function (sortType, sortField) {
+    var records = JSON.parse(localStorage.getItem('EmployeeRecords'));
+    var name1, name2;
+    if (sortType === 'ASC') {
+        records.sort(function (e1, e2) {
+            if (sortField == 'fname') {
+                name1 = e1._firstName.toLowerCase(), name2 = e2._firstName.toLowerCase();
+            }
+            else {
+                name1 = e1._lastName.toLowerCase(), name2 = e2._lastName.toLowerCase();
+            }
+            if (name1 < name2) {
+                return -1;
+            }
+            return 0;
+        });
+    }
+    else {
+        records.sort(function (e1, e2) {
+            name1 = e1._firstName.toLowerCase(), name2 = e2._firstName.toLowerCase();
+            if (sortField == 'fname') {
+                name1 = e1._firstName.toLowerCase(), name2 = e2._firstName.toLowerCase();
+            }
+            else {
+                name1 = e1._lastName.toLowerCase(), name2 = e2._lastName.toLowerCase();
+            }
+            if (name1 > name2) {
+                return -1;
+            }
+            return 0;
+        });
+    }
+    localStorage.setItem('EmployeeRecords', JSON.stringify(records));
+    Employee.viewEmployees();
+};
+var sortByGender = function (sortType) {
+    var records = JSON.parse(localStorage.getItem('EmployeeRecords'));
+    if (sortType === 'ASC') {
+        records.sort(function (e1, e2) {
+            if (e2._gender > e1._gender) {
+                return -1;
+            }
+            return 0;
+        });
+    }
+    else {
+        records.sort(function (e1, e2) {
+            if (e1._gender > e2._gender) {
+                return -1;
+            }
+            return 0;
+        });
+    }
+    localStorage.setItem('EmployeeRecords', JSON.stringify(records));
+    Employee.viewEmployees();
+};
+var sortByAge = function (sortType) {
+    var records = JSON.parse(localStorage.getItem('EmployeeRecords'));
+    if (sortType === 'ASC') {
+        records.sort(function (e1, e2) {
+            if (e1._age < e2._age) {
+                return -1;
+            }
+            return 0;
+        });
+    }
+    else {
+        records.sort(function (e1, e2) {
+            if (e2._age < e1._age) {
+                return -1;
+            }
+            return 0;
+        });
+    }
+    localStorage.setItem('EmployeeRecords', JSON.stringify(records));
+    Employee.viewEmployees();
+};
+var sortByExperience = function (sortType) {
+    var records = JSON.parse(localStorage.getItem('EmployeeRecords'));
+    if (sortType === 'ASC') {
+        records.sort(function (e1, e2) {
+            if (e1._experience < e2._experience) {
+                return -1;
+            }
+            return 0;
+        });
+    }
+    else {
+        records.sort(function (e1, e2) {
+            if (e2._experience < e1._experience) {
+                return -1;
+            }
+            return 0;
+        });
+    }
+    localStorage.setItem('EmployeeRecords', JSON.stringify(records));
+    Employee.viewEmployees();
+};
+var sortBySalary = function (sortType) {
+    var records = JSON.parse(localStorage.getItem('EmployeeRecords'));
+    if (sortType === 'ASC') {
+        records.sort(function (e1, e2) {
+            if (e1._salary < e2._salary) {
+                return -1;
+            }
+            return 0;
+        });
+    }
+    else {
+        records.sort(function (e1, e2) {
+            if (e2._salary < e1._salary) {
+                return -1;
+            }
+            return 0;
+        });
+    }
+    localStorage.setItem('EmployeeRecords', JSON.stringify(records));
+    Employee.viewEmployees();
+};

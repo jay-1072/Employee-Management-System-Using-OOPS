@@ -27,6 +27,9 @@ eImage.addEventListener('change', function(event:any) {
 });
 
 let makeEditable = () => {
+    (<any>document.getElementById('editBtn')!).setAttribute('hidden', 'true');
+    (<any>document.getElementById('updateBtn')!).removeAttribute('hidden');
+    (<any>document.getElementById('backBtn')!).removeAttribute('hidden');
     (<any>document.getElementById('id')!).disabled = false;
     (<any>document.getElementById('profile'))!.disabled = false;
     (<any>document.getElementById('about'))!.innerHTML;
@@ -73,7 +76,7 @@ let updateEdetails = () => {
     Record[indx]._salary = salary;
     Record[indx]._designation = designation;
     localStorage.setItem('EmployeeRecords', JSON.stringify(Record));
-    location.href = "index.html"
+    location.href = "index.html";
 }
 
 let delEmp = () => {

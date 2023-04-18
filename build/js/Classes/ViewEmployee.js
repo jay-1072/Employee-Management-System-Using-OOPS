@@ -24,6 +24,9 @@ eImage.addEventListener('change', function (event) {
     });
 });
 var makeEditable = function () {
+    document.getElementById('editBtn').setAttribute('hidden', 'true');
+    document.getElementById('updateBtn').removeAttribute('hidden');
+    document.getElementById('backBtn').removeAttribute('hidden');
     document.getElementById('id').disabled = false;
     document.getElementById('profile').disabled = false;
     document.getElementById('about').innerHTML;
