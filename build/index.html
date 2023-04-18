@@ -78,7 +78,7 @@
                             <!-- for employee id -->
                             <div class="mb-4">
                                 <label class="mb-1" for="empId">Employee Id</label>
-                                <input type="text" class="form-control shadow-none" id="empId" name="empId">
+                                <input type="text" class="form-control shadow-none" id="empId" name="empId" onkeydown="check(event, 'id')" onkeyup="check(event, 'id')">
                                 <strong id="eIdError" class="text-danger font-wight-bold"></strong>
                             </div>
                             <!-- for employee description -->
@@ -195,7 +195,7 @@
     <!-- container for table -->
     <div class="container" id="tblContainer" style="overflow: auto;">
         <!-- table started -->
-        <table class="table table-hover" id="prdTbl" style="border-collapse: collapse;">
+        <table class="table table-hover" id="prdTbl" style="border-collapse: collapse; height: 100%;">
             <thead style="background-color: rgb(108, 121, 224);">
                 <tr>
                     <th scope="col" class="text-center">

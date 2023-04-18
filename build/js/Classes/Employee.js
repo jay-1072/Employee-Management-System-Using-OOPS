@@ -238,6 +238,7 @@ var index;
 var base64 = '';
 var Regexp = /^\S*$/;
 var emailRegex = /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/;
+var idRegex = /^[a-zA-Z0-9]*$/;
 var submitBtn = document.getElementById('submitBtn');
 var modal = document.getElementById('newPrdModal');
 var sortById_asc = document.getElementById('sortById_asc');
@@ -334,6 +335,11 @@ function check(event, element) {
             event.preventDefault();
         }
     }
+    if (element == 'id') {
+        if ((!(kCode >= 65 && kCode <= 90) && !(kCode >= 48 && kCode <= 57) && !(kCode == 8))) {
+            event.preventDefault();
+        }
+    }
 }
 function valid(eObj) {
     document.getElementById("eIdError").innerHTML = "";
@@ -363,6 +369,11 @@ function valid(eObj) {
     if (flag) {
         if (eObj._id == '') {
             document.getElementById("eIdError").innerHTML = "please enter employee id";
+            document.getElementById("empId").style.border = "1px solid red";
+            flag = false;
+        }
+        else if (!idRegex.test(eObj._id)) {
+            document.getElementById("eIdError").innerHTML = "Only alphanumeric id is allowed";
             document.getElementById("empId").style.border = "1px solid red";
             flag = false;
         }

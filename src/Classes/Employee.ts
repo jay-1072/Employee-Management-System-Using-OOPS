@@ -240,6 +240,7 @@ let index: number;
 let base64: any = '';
 const Regexp = /^\S*$/;
 const emailRegex = /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/;
+const idRegex = /^[a-zA-Z0-9]*$/
 
 const submitBtn = <HTMLInputElement>document.getElementById('submitBtn');
 const modal = <any>document.getElementById('newPrdModal');
@@ -352,6 +353,12 @@ function check(event: any, element:string) {
         }
     }
 
+    if(element=='id') {
+        if ((!(kCode >= 65 && kCode <= 90) && !(kCode >= 48 && kCode <= 57)  && !(kCode == 8))) {
+            event.preventDefault();
+        }
+    }
+
 }
 
 function valid(eObj: Employee): boolean {
@@ -398,6 +405,13 @@ function valid(eObj: Employee): boolean {
             document.getElementById("empId").style.border = "1px solid red";
             flag = false;
         }
+        else if(!idRegex.test(eObj._id)) {
+            document.getElementById("eIdError").innerHTML = "Only alphanumeric id is allowed";
+            document.getElementById("empId").style.border = "1px solid red";
+            flag = false;
+        }
+
+
         if (eObj._about.length == 0) {
             document.getElementById("eAboutError").innerHTML = "please enter employee description";
             document.getElementById("empAbout").style.border = "1px solid red";
