@@ -8,7 +8,7 @@ var find = function (empId) {
     Record = JSON.parse(localStorage.getItem('EmployeeRecords'));
     console.log(Record);
     for (var i = 0; i < Record.length; i++) {
-        if (empId == Record[i]._id) {
+        if (empId === Record[i]._id) {
             return i;
         }
     }
@@ -26,7 +26,6 @@ eImage.addEventListener('change', function (event) {
 var makeEditable = function () {
     document.getElementById('editBtn').setAttribute('hidden', 'true');
     document.getElementById('updateBtn').removeAttribute('hidden');
-    document.getElementById('backBtn').removeAttribute('hidden');
     document.getElementById('id').disabled = false;
     document.getElementById('profile').disabled = false;
     document.getElementById('about').innerHTML;
@@ -85,8 +84,6 @@ var delEmp = function () {
 (function () {
     url = new URL(window.location.href);
     eid = url.searchParams.get("id");
-    eid = parseInt(eid);
-    console.log(eid);
     indx = find(eid);
     Record = JSON.parse(localStorage.getItem('EmployeeRecords'));
     document.getElementById('id').value = Record[indx]._id;
@@ -99,6 +96,8 @@ var delEmp = function () {
     document.getElementById('gender').value = Record[indx]._gender;
     document.getElementById('email').value = Record[indx]._email;
     document.getElementById('ageVal').value = Record[indx]._age;
+    document.getElementById('age').value = Record[indx]._age;
+    document.getElementById('experience').value = Record[indx]._experience;
     document.getElementById('experienceVal').value = Record[indx]._experience;
     document.getElementById('skills').value = Record[indx]._skills;
     document.getElementById('salary').value = Record[indx]._salary;

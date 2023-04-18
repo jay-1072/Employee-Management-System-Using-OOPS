@@ -81,7 +81,7 @@
             <div class="row">
                 <div class="mb-5 col-4">
                     <label for="age" class="form-label mt-1">Age&nbsp;&nbsp;</label><input type="text" class="text-center w-25" id="ageVal" disabled>
-                    <input type="range" id="age" class="form-range" min="20" max="50" step="1" value="0" oninput="this.previousElementSibling.value = this.value" disabled>
+                    <input type="range" id="age" class="form-range" min="20" max="50" step="1" oninput="this.previousElementSibling.value = this.value" disabled>
                 </div>
                 <div class="mb-5 col">
                     <label class="mt-1" for="gender">Gender</label>
@@ -100,7 +100,7 @@
             <div class="row">
                 <div class="mb-5 col-4">
                     <label for="experience" class="form-label mt-1">Experience&nbsp;&nbsp;</label><input type="text" class="text-center w-25" id="experienceVal" disabled>
-                    <input type="range" id="experience" class="form-range" min="1" max="30" step="0.5" value="0" oninput="this.previousElementSibling.value = this.value" disabled>
+                    <input type="range" id="experience" class="form-range" min="1" max="30" step="0.5" oninput="this.previousElementSibling.value = this.value" disabled>
                 </div>
                 <div class="mb-5 col-4">
                     <label for="skills" class="form-label">Skills&nbsp;</label>
@@ -118,7 +118,7 @@
                 <button class="btn btn-primary ms-3" id="editBtn" onclick="makeEditable()">Edit</button>
                 <button class="btn btn-primary ms-3" id="updateBtn" onclick="updateEdetails()" hidden>Update</button> 
                 <button class="btn btn-primary ms-3" onclick="delEmp()">Delete</button>
-                <button class="btn btn-primary ms-3" id="backBtn" onclick="location.href='index.html'" hidden>Back</button>
+                <button class="btn btn-primary ms-3" onclick="location.href='index.html'">Back</button>
             </div>
         </div>
         

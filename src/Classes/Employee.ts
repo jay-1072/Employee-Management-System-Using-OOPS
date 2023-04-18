@@ -4,7 +4,7 @@
 declare var bootstrap: any;
 
 class Employee implements EmployeeDetails.IEmployeeDetails, EmployeeMethods.IEmployeeMethods {
-        _id:number;
+        _id:string;
         _profile: string;
         _about: string;
         _firstName:string;
@@ -19,7 +19,7 @@ class Employee implements EmployeeDetails.IEmployeeDetails, EmployeeMethods.IEmp
         _salary:number;
         
         // Employee class constructor
-        constructor(_id:number, _profile: string, _about: string, _firstName:string, _middleName:string, _lastName:string, _gender:string, _age:number, _email:string, _designation:string, _skills: string[], _experience:number, _salary:number) {
+        constructor(_id:string, _profile: string, _about: string, _firstName:string, _middleName:string, _lastName:string, _gender:string, _age:number, _email:string, _designation:string, _skills: string[], _experience:number, _salary:number) {
             this._id = _id;
             this._profile = _profile;
             this._about = _about;
@@ -36,12 +36,12 @@ class Employee implements EmployeeDetails.IEmployeeDetails, EmployeeMethods.IEmp
         }
 
         // getter method for employeeId
-        get employeeId():number {
+        get employeeId():string {
             return this._id;
         }
 
         // setter method for employeeId
-        set employeeId(_id:number) {
+        set employeeId(_id:string) {
             this._id = _id;
         }
 
@@ -237,7 +237,7 @@ let employeeRecord:Employee[] = [];
 let html = "";
 let employeeObj:Employee;
 let index:number;
-let base64:any;
+let base64:any = '';
 let nameRegexp = /^\S*$/;
 
 const submitBtn = <HTMLInputElement>document.getElementById('submitBtn');
@@ -259,6 +259,20 @@ const sortByGender_desc = <any>document.getElementById('sortByGender_desc');
 const sortByAge_desc = <any>document.getElementById('sortByAge_desc');
 const sortByExperience_desc = <any>document.getElementById('sortByExperience_desc');
 const sortBySalary_desc = <any>document.getElementById('sortBySalary_desc');
+
+const orig_eId:any = <HTMLInputElement>document.getElementById('empId');
+const orig_eAbout:any = <HTMLInputElement>document.getElementById('empAbout');
+const orig_eProfile:any = <HTMLInputElement>document.getElementById('empProfile');
+const orig_eFirstName:any = <HTMLInputElement>document.getElementById('empFname');
+const orig_eMiddleName:any = <HTMLInputElement>document.getElementById('empMname');
+const orig_eLastName:any = <HTMLInputElement>document.getElementById('empLname');
+const orig_eGender:any = <HTMLInputElement>document.getElementById('empGender');
+const orig_eAge:any = <HTMLInputElement>document.getElementById('ageValue');
+const orig_eEmail:any = <HTMLInputElement>document.getElementById('empEmail');
+const orig_eDesignation:any = <HTMLInputElement>document.getElementById('empDesignation');
+const orig_eSkills:any = <HTMLInputElement>document.getElementById('empSkills');
+const orig_eExperience:any = <HTMLInputElement>document.getElementById('empExperience');
+const orig_eSalary:any = <HTMLInputElement>document.getElementById('empSalary');
 
 
 sortById_asc.onclick = () => {
@@ -306,24 +320,70 @@ sortBySalary_desc.onclick = () => {
     sortBySalary('DESC');
 }
 
-
 (() => {
     Employee.viewEmployees();
 })();
 
-function valid(eObj:Employee):boolean{
-    let flag:boolean = true;
-    console.log(eObj._experience);
+function check(event:any) {
+    let kCode = event.keyCode;
+    if((event.keyCode>=48 && event.keyCode<=57)||(event.keyCode>=65 && event.keyCode<=90)||((event.keyCode==8))) {
+        return true;
+    }
+    return false;
+}
 
+
+function valid(eObj:Employee):boolean{
+
+    document.getElementById("eIdError").innerHTML = "";
+    (<any>document.getElementById("empId")).style = orig_eId;
+
+    document.getElementById("eAboutError").innerHTML = "";
+    (<any>document.getElementById("empAbout")).style = orig_eAbout;
+
+    document.getElementById("eProfileError").innerHTML = "";
+    (<any>document.getElementById("empProfile")).style = orig_eProfile;
+
+    document.getElementById("eFnameError").innerHTML = "";
+    (<any>document.getElementById("empFname")).style = orig_eFirstName;
+
+    document.getElementById("eMnameError").innerHTML = "";
+    (<any>document.getElementById("empMname")).style = orig_eMiddleName;
+
+    document.getElementById("eLnameError").innerHTML = "";
+    (<any>document.getElementById("empLname")).style = orig_eLastName;
+
+    document.getElementById("eEmailError").innerHTML = "";
+    (<any>document.getElementById("empEmail")).style = orig_eEmail;
+
+    document.getElementById("eDesignationError").innerHTML = "";
+    (<any>document.getElementById("empDesignation")).style = orig_eDesignation;
+
+    document.getElementById("eSkillsError").innerHTML = "";
+    (<any>document.getElementById("empSkills")).style = orig_eSkills;
+
+    document.getElementById("eAgeError").innerHTML = "";
+    document.getElementById("eExperienceError").innerHTML ="";
+
+    document.getElementById("eSalaryError").innerHTML = "";
+    (<any>document.getElementById("empSalary")).style = orig_eSalary;
+
+    let flag:boolean = true;
+    
     if(flag) {
-        if (isNaN(eObj._id)) {
+        if (eObj._id == '') {
             document.getElementById("eIdError").innerHTML = "please enter employee id";
             document.getElementById("empId").style.border = "1px solid red";
             flag = false;
         }
-        if (eObj._about == '') {
+        if (eObj._about.length==0) {
             document.getElementById("eAboutError").innerHTML = "please enter employee description";
             document.getElementById("empAbout").style.border = "1px solid red";
+            flag = false;
+        }
+        if (eObj._profile.length===0) {
+            document.getElementById("eProfileError").innerHTML = "please add employee profile";
+            document.getElementById("empProfile").style.border = "1px solid red";
             flag = false;
         }
         if (eObj._firstName == '') {
@@ -405,19 +465,21 @@ submitBtn.onclick = (event):void => {
     let eExperience:any = <HTMLInputElement>document.getElementById('empExperience');
     let eSalary:any = <HTMLInputElement>document.getElementById('empSalary');
 
-    eId = parseInt(eId.value);
-    eProfile = base64;
-    eAbout = eAbout.value;
-    eFirstName = eFirstName.value;
-    eMiddleName = eMiddleName.value;
-    eLastName = eLastName.value;
+    console.log(typeof base64);
+
+    eId = eId.value.trim();
+    eProfile = base64.length===0?'':base64; 
+    eAbout = eAbout.value.trim();
+    eFirstName = eFirstName.value.trim();
+    eMiddleName = eMiddleName.value.trim();
+    eLastName = eLastName.value.trim();
     eGender = eGender.value;
     eAge = eAge.value;
-    eEmail = eEmail.value;
-    eDesignation = eDesignation.value;
-    eSkills = eSkills.value;
+    eEmail = eEmail.value.trim();
+    eDesignation = eDesignation.value.trim();
+    eSkills = eSkills.value.trim();
     eExperience = eExperience.value;
-    eSalary = eSalary.value;
+    eSalary = eSalary.value.trim();
     
     employeeObj = new Employee(eId, eProfile, eAbout, eFirstName, eMiddleName, eLastName, eGender, eAge, eEmail, eDesignation, eSkills, eExperience, eSalary);
 
@@ -437,6 +499,7 @@ submitBtn.onclick = (event):void => {
             }
             else {
                 alert("Employee Id already exist");
+                event.preventDefault();
             }
         }
     }
@@ -473,7 +536,7 @@ submitBtn.onclick = (event):void => {
 //     }
 // }
 
-function checkEmployeeId(empId:number):boolean {
+function checkEmployeeId(empId:string):boolean {
     let res:boolean = false;
     if(localStorage.getItem(EMPLOYEE)!=null) {
         employeeRecord = JSON.parse(localStorage.getItem(EMPLOYEE)!);

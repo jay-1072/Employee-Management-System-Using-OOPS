@@ -4,11 +4,11 @@ let indx:number;
 let Record:Employee[];
 let base64Img:string;
 
-let find = (empId:number):number => {
+let find = (empId:string):number => {
     Record = JSON.parse(localStorage.getItem('EmployeeRecords')!);
     console.log(Record);
     for(let i=0; i<Record.length; i++) {
-        if(empId==Record[i]._id) {
+        if(empId===Record[i]._id) {
             return i;
         }
     }
@@ -29,7 +29,6 @@ eImage.addEventListener('change', function(event:any) {
 let makeEditable = () => {
     (<any>document.getElementById('editBtn')!).setAttribute('hidden', 'true');
     (<any>document.getElementById('updateBtn')!).removeAttribute('hidden');
-    (<any>document.getElementById('backBtn')!).removeAttribute('hidden');
     (<any>document.getElementById('id')!).disabled = false;
     (<any>document.getElementById('profile'))!.disabled = false;
     (<any>document.getElementById('about'))!.innerHTML;
@@ -91,11 +90,9 @@ let delEmp = () => {
 (function() {
     url = new URL(window.location.href);
     eid = url.searchParams.get("id")!;
-    eid = parseInt(eid as string);
-    console.log(eid);
     indx = find(eid);
     Record = JSON.parse(localStorage.getItem('EmployeeRecords')!);
-    (<any>document.getElementById('id')!).value = Record[indx]._id;
+    (<any>document.getElementById('id'))!.value = Record[indx]._id;
     (<any>document.getElementById('empImage')!).src = Record[indx]._profile;
     // (<any>document.getElementById('profile'))!.value = 'C:/images/abc.png';
     (<any>document.getElementById('about'))!.innerHTML = Record[indx]._about;
@@ -105,6 +102,8 @@ let delEmp = () => {
     (<any>document.getElementById('gender'))!.value = Record[indx]._gender;
     (<any>document.getElementById('email'))!.value = Record[indx]._email;
     (<any>document.getElementById('ageVal'))!.value = Record[indx]._age;
+    (<any>document.getElementById('age'))!.value = Record[indx]._age;
+    (<any>document.getElementById('experience'))!.value = Record[indx]._experience;
     (<any>document.getElementById('experienceVal'))!.value = Record[indx]._experience;
     (<any>document.getElementById('skills'))!.value = Record[indx]._skills;
     (<any>document.getElementById('salary'))!.value = Record[indx]._salary;

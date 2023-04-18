@@ -235,7 +235,7 @@ var employeeRecord = [];
 var html = "";
 var employeeObj;
 var index;
-var base64;
+var base64 = '';
 var nameRegexp = /^\S*$/;
 var submitBtn = document.getElementById('submitBtn');
 var modal = document.getElementById('newPrdModal');
@@ -253,6 +253,19 @@ var sortByGender_desc = document.getElementById('sortByGender_desc');
 var sortByAge_desc = document.getElementById('sortByAge_desc');
 var sortByExperience_desc = document.getElementById('sortByExperience_desc');
 var sortBySalary_desc = document.getElementById('sortBySalary_desc');
+var orig_eId = document.getElementById('empId');
+var orig_eAbout = document.getElementById('empAbout');
+var orig_eProfile = document.getElementById('empProfile');
+var orig_eFirstName = document.getElementById('empFname');
+var orig_eMiddleName = document.getElementById('empMname');
+var orig_eLastName = document.getElementById('empLname');
+var orig_eGender = document.getElementById('empGender');
+var orig_eAge = document.getElementById('ageValue');
+var orig_eEmail = document.getElementById('empEmail');
+var orig_eDesignation = document.getElementById('empDesignation');
+var orig_eSkills = document.getElementById('empSkills');
+var orig_eExperience = document.getElementById('empExperience');
+var orig_eSalary = document.getElementById('empSalary');
 sortById_asc.onclick = function () {
     sortByEId('ASC');
 };
@@ -298,18 +311,51 @@ sortBySalary_desc.onclick = function () {
 (function () {
     Employee.viewEmployees();
 })();
+function check(event) {
+    var kCode = event.keyCode;
+    if ((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 65 && event.keyCode <= 90) || ((event.keyCode == 8))) {
+        return true;
+    }
+    return false;
+}
 function valid(eObj) {
+    document.getElementById("eIdError").innerHTML = "";
+    document.getElementById("empId").style = orig_eId;
+    document.getElementById("eAboutError").innerHTML = "";
+    document.getElementById("empAbout").style = orig_eAbout;
+    document.getElementById("eProfileError").innerHTML = "";
+    document.getElementById("empProfile").style = orig_eProfile;
+    document.getElementById("eFnameError").innerHTML = "";
+    document.getElementById("empFname").style = orig_eFirstName;
+    document.getElementById("eMnameError").innerHTML = "";
+    document.getElementById("empMname").style = orig_eMiddleName;
+    document.getElementById("eLnameError").innerHTML = "";
+    document.getElementById("empLname").style = orig_eLastName;
+    document.getElementById("eEmailError").innerHTML = "";
+    document.getElementById("empEmail").style = orig_eEmail;
+    document.getElementById("eDesignationError").innerHTML = "";
+    document.getElementById("empDesignation").style = orig_eDesignation;
+    document.getElementById("eSkillsError").innerHTML = "";
+    document.getElementById("empSkills").style = orig_eSkills;
+    document.getElementById("eAgeError").innerHTML = "";
+    document.getElementById("eExperienceError").innerHTML = "";
+    document.getElementById("eSalaryError").innerHTML = "";
+    document.getElementById("empSalary").style = orig_eSalary;
     var flag = true;
-    console.log(eObj._experience);
     if (flag) {
-        if (isNaN(eObj._id)) {
+        if (eObj._id == '') {
             document.getElementById("eIdError").innerHTML = "please enter employee id";
             document.getElementById("empId").style.border = "1px solid red";
             flag = false;
         }
-        if (eObj._about == '') {
+        if (eObj._about.length == 0) {
             document.getElementById("eAboutError").innerHTML = "please enter employee description";
             document.getElementById("empAbout").style.border = "1px solid red";
+            flag = false;
+        }
+        if (eObj._profile.length === 0) {
+            document.getElementById("eProfileError").innerHTML = "please add employee profile";
+            document.getElementById("empProfile").style.border = "1px solid red";
             flag = false;
         }
         if (eObj._firstName == '') {
@@ -387,19 +433,20 @@ submitBtn.onclick = function (event) {
     var eSkills = document.getElementById('empSkills');
     var eExperience = document.getElementById('empExperience');
     var eSalary = document.getElementById('empSalary');
-    eId = parseInt(eId.value);
-    eProfile = base64;
-    eAbout = eAbout.value;
-    eFirstName = eFirstName.value;
-    eMiddleName = eMiddleName.value;
-    eLastName = eLastName.value;
+    console.log(typeof base64);
+    eId = eId.value.trim();
+    eProfile = base64.length === 0 ? '' : base64;
+    eAbout = eAbout.value.trim();
+    eFirstName = eFirstName.value.trim();
+    eMiddleName = eMiddleName.value.trim();
+    eLastName = eLastName.value.trim();
     eGender = eGender.value;
     eAge = eAge.value;
-    eEmail = eEmail.value;
-    eDesignation = eDesignation.value;
-    eSkills = eSkills.value;
+    eEmail = eEmail.value.trim();
+    eDesignation = eDesignation.value.trim();
+    eSkills = eSkills.value.trim();
     eExperience = eExperience.value;
-    eSalary = eSalary.value;
+    eSalary = eSalary.value.trim();
     employeeObj = new Employee(eId, eProfile, eAbout, eFirstName, eMiddleName, eLastName, eGender, eAge, eEmail, eDesignation, eSkills, eExperience, eSalary);
     if (!valid(employeeObj)) {
         event.preventDefault();
@@ -417,6 +464,7 @@ submitBtn.onclick = function (event) {
             }
             else {
                 alert("Employee Id already exist");
+                event.preventDefault();
             }
         }
     }

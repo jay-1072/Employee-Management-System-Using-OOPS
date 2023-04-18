@@ -3,7 +3,7 @@
  */
 namespace EmployeeDetails {
     export interface IEmployeeDetails {
-        _id:number;
+        _id:string;
         _profile:string;
         _about:string;
         _firstName:string;
