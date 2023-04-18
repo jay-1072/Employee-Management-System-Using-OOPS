@@ -239,6 +239,7 @@ var base64 = '';
 var Regexp = /^\S*$/;
 var emailRegex = /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/;
 var idRegex = /^[a-zA-Z0-9]*$/;
+var numberRegex = /^[0-9]+$/;
 var submitBtn = document.getElementById('submitBtn');
 var modal = document.getElementById('newPrdModal');
 var sortById_asc = document.getElementById('sortById_asc');
@@ -331,7 +332,7 @@ function check(event, element) {
         }
     }
     if (element == 'email') {
-        if (!(kCode >= 65 && kCode <= 90) && !(kCode == 8) && !(kCode >= 48 && kCode <= 57) && (kCode == 110)) {
+        if (!(kCode >= 65 && kCode <= 90) && !(kCode == 8) && !(kCode >= 48 && kCode <= 57) && (kCode == 32)) {
             event.preventDefault();
         }
     }
@@ -437,6 +438,11 @@ function valid(eObj) {
         }
         if (!eObj._salary) {
             document.getElementById("eSalaryError").innerHTML = "please enter employee salary";
+            document.getElementById("empSalary").style.border = "1px solid red";
+            flag = false;
+        }
+        else if (!numberRegex.test(eObj._salary)) {
+            document.getElementById("eSalaryError").innerHTML = "Only digits are allowed";
             document.getElementById("empSalary").style.border = "1px solid red";
             flag = false;
         }
@@ -576,14 +582,23 @@ profileInput.addEventListener('change', function (event) {
 });
 var sortByEId = function (sortType) {
     var records = JSON.parse(localStorage.getItem('EmployeeRecords'));
+    var id1, id2;
     if (sortType === 'ASC') {
         records.sort(function (e1, e2) {
-            return parseInt(e1._id) - parseInt(e2._id);
+            id1 = e1._id, id2 = e2._id;
+            if (id1 < id2) {
+                return -1;
+            }
+            return 0;
         });
     }
     else {
         records.sort(function (e1, e2) {
-            return parseInt(e2._id) - parseInt(e1._id);
+            id1 = e1._id, id2 = e2._id;
+            if (id1 > id2) {
+                return -1;
+            }
+            return 0;
         });
     }
     localStorage.setItem('EmployeeRecords', JSON.stringify(records));

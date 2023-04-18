@@ -1,7 +1,7 @@
 let url;
 let eid:string|number;
 let indx:number;
-let Record:Employee[];
+let Record:any;
 let base64Img:string;
 
 let find = (empId:string):number => {
@@ -92,9 +92,8 @@ let delEmp = () => {
     eid = url.searchParams.get("id")!;
     indx = find(eid);
     Record = JSON.parse(localStorage.getItem('EmployeeRecords')!);
-    (<any>document.getElementById('id'))!.value = Record[indx]._id;
+    (<any>document.getElementById('id')).value = Record[indx]._id;
     (<any>document.getElementById('empImage')!).src = Record[indx]._profile;
-    // (<any>document.getElementById('profile'))!.value = 'C:/images/abc.png';
     (<any>document.getElementById('about'))!.innerHTML = Record[indx]._about;
     (<any>document.getElementById('fname'))!.value = Record[indx]._firstName;
     (<any>document.getElementById('mname'))!.value = Record[indx]._middleName;

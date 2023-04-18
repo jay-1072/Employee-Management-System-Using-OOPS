@@ -88,7 +88,6 @@ var delEmp = function () {
     Record = JSON.parse(localStorage.getItem('EmployeeRecords'));
     document.getElementById('id').value = Record[indx]._id;
     document.getElementById('empImage').src = Record[indx]._profile;
-    // (<any>document.getElementById('profile'))!.value = 'C:/images/abc.png';
     document.getElementById('about').innerHTML = Record[indx]._about;
     document.getElementById('fname').value = Record[indx]._firstName;
     document.getElementById('mname').value = Record[indx]._middleName;

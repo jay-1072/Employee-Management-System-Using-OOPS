@@ -2,7 +2,6 @@
 ///<reference path='../Interfaces/IEmployeeMethods.ts' />
 
 declare var bootstrap: any;
-
 class Employee implements EmployeeDetails.IEmployeeDetails, EmployeeMethods.IEmployeeMethods {
     _id: string;
     _profile: string;
@@ -240,7 +239,8 @@ let index: number;
 let base64: any = '';
 const Regexp = /^\S*$/;
 const emailRegex = /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/;
-const idRegex = /^[a-zA-Z0-9]*$/
+const idRegex = /^[a-zA-Z0-9]*$/;
+const numberRegex = /^[0-9]+$/
 
 const submitBtn = <HTMLInputElement>document.getElementById('submitBtn');
 const modal = <any>document.getElementById('newPrdModal');
@@ -348,7 +348,7 @@ function check(event: any, element:string) {
     }
 
     if(element=='email') {
-        if (!(kCode >= 65 && kCode <= 90) && !(kCode == 8) && !(kCode >= 48 && kCode <= 57) && (kCode==110)) {
+        if (!(kCode >= 65 && kCode <= 90) && !(kCode == 8) && !(kCode >= 48 && kCode <= 57) && (kCode == 32)) {
             event.preventDefault();
         }
     }
@@ -481,6 +481,11 @@ function valid(eObj: Employee): boolean {
             document.getElementById("empSalary").style.border = "1px solid red";
             flag = false;
         }
+        else if(!numberRegex.test(eObj._salary)) {
+            document.getElementById("eSalaryError").innerHTML = "Only digits are allowed";
+            document.getElementById("empSalary").style.border = "1px solid red";
+            flag = false;
+        }
         else if(eObj._salary.length>=7 || eObj._salary.length<5) {
             document.getElementById("eSalaryError").innerHTML = "salary must be in between 10000 and 999999";
             document.getElementById("empSalary").style.border = "1px solid red";
@@ -488,13 +493,6 @@ function valid(eObj: Employee): boolean {
         }
         
     }
-
-    
-    
-    
-    
-
-
 
     return flag;
 }
@@ -646,15 +644,26 @@ profileInput.addEventListener('change', function (event: any) {
 let sortByEId = (sortType: string) => {
 
     let records = JSON.parse(localStorage.getItem('EmployeeRecords'));
+    let id1, id2;
 
     if (sortType === 'ASC') {
         records.sort((e1: any, e2: any) => {
-            return parseInt(e1._id) - parseInt(e2._id);
+            id1 = e1._id, id2 = e2._id;
+
+            if(id1<id2) {
+                return -1;
+            }
+            return 0;
         })
     }
     else {
         records.sort((e1: any, e2: any) => {
-            return parseInt(e2._id) - parseInt(e1._id);
+            id1 = e1._id, id2 = e2._id;
+
+            if(id1>id2) {
+                return -1;
+            }
+            return 0;
         })
     }
 

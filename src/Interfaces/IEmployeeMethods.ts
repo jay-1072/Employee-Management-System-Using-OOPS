@@ -3,7 +3,7 @@
  */
 namespace EmployeeMethods {
     export interface IEmployeeMethods {
-        addEmployee: (newEmployee:Employee) => void; 
-        updateEmployee: (employee:Employee, index:number) => void;
+        addEmployee: (newEmployee:any) => void; 
+        updateEmployee: (employee:any, index:number) => void;
     }
 }
