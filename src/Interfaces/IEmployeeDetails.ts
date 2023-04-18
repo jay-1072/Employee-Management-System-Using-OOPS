@@ -14,7 +14,7 @@ namespace EmployeeDetails {
         _age:number;
         _designation:string;
         _experience:number;
-        _salary:number;
+        _salary:string;
         _skills:string[];
     }
 }

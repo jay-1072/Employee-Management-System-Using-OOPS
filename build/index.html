@@ -78,7 +78,7 @@
                             <!-- for employee id -->
                             <div class="mb-4">
                                 <label class="mb-1" for="empId">Employee Id</label>
-                                <input type="text" class="form-control shadow-none" id="empId" name="empId" onkeydown="check(event)" onkeyup="check(event)">
+                                <input type="text" class="form-control shadow-none" id="empId" name="empId">
                                 <strong id="eIdError" class="text-danger font-wight-bold"></strong>
                             </div>
                             <!-- for employee description -->
@@ -97,25 +97,25 @@
                             <!-- for employee first name -->
                             <div class="mb-4">
                                 <label class="mb-1" for="empFname">First Name</label>
-                                <input type="text" class="form-control shadow-none" id="empFname" name="empFname">
+                                <input type="text" class="form-control shadow-none" id="empFname" name="empFname" onkeydown="check(event, 'fname')" onkeyup="check(event, 'fname')">
                                 <strong id="eFnameError" class="text-danger font-wight-bold"></strong>
                             </div>
                             <!-- for employee middle name -->
                             <div class="mb-4">
                                 <label class="mb-1" for="empMname">Middle Name</label>
-                                <input type="text" class="form-control shadow-none" id="empMname" name="empMname">
+                                <input type="text" class="form-control shadow-none" id="empMname" name="empMname" onkeydown="check(event, 'mname')" onkeyup="check(event, 'mname')">
                                 <strong id="eMnameError" class="text-danger font-wight-bold"></strong>
                             </div>
                             <!-- for employee last name -->
                             <div class="mb-4">
                                 <label class="mb-1" for="empLname">Last Name</label>
-                                <input type="text" class="form-control shadow-none" id="empLname" name="empLname">
+                                <input type="text" class="form-control shadow-none" id="empLname" name="empLname" onkeydown="check(event, 'lname')" onkeyup="check(event, 'lname')">
                                 <strong id="eLnameError" class="text-danger font-wight-bold"></strong>
                             </div>
                             <!-- for employee email -->
                             <div class="mb-4">
                                 <label class="mb-1" for="empEmail">Email</label>
-                                <input type="text" class="form-control shadow-none" id="empEmail" name="empEmail">
+                                <input type="text" class="form-control shadow-none" id="empEmail" name="empEmail" onkeydown="check(event, 'email')" onkeyup="check(event, 'email')">
                                 <strong id="eEmailError" class="text-danger font-wight-bold"></strong>
                             </div>
 
@@ -138,8 +138,7 @@
 
                             <div class="mb-4">
                                 <label for="empDesignation" class="form-label">Designation</label>
-                                <input type="text" id="empDesignation" name="empDesignation"
-                                    class="form-control shadow-none">
+                                <input type="text" id="empDesignation" name="empDesignation" class="form-control shadow-none" onkeydown="check(event, 'designation')" onkeyup="check(event, 'designation')">
                                 <strong id="eDesignationError" class="text-danger font-wight-bold"></strong>
                             </div>
 
@@ -159,7 +158,7 @@
 
                             <div class="mb-4">
                                 <label for="empSalary" class="form-label">Salary</label>
-                                <input type="text" id="empSalary" name="empSalary" class="form-control shadow-none">
+                                <input type="text" id="empSalary" name="empSalary" class="form-control shadow-none" onkeydown="check(event, 'salary')" onkeyup="check(event, 'salary')">
                                 <strong id="eSalaryError" class="text-danger font-wight-bold"></strong>
                             </div>
 

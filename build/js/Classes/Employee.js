@@ -236,7 +236,8 @@ var html = "";
 var employeeObj;
 var index;
 var base64 = '';
-var nameRegexp = /^\S*$/;
+var Regexp = /^\S*$/;
+var emailRegex = /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/;
 var submitBtn = document.getElementById('submitBtn');
 var modal = document.getElementById('newPrdModal');
 var sortById_asc = document.getElementById('sortById_asc');
@@ -311,12 +312,28 @@ sortBySalary_desc.onclick = function () {
 (function () {
     Employee.viewEmployees();
 })();
-function check(event) {
+function check(event, element) {
     var kCode = event.keyCode;
-    if ((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 65 && event.keyCode <= 90) || ((event.keyCode == 8))) {
-        return true;
+    if (element == 'fname' || element == 'mname' || element == 'lname') {
+        if (!(kCode >= 65 && kCode <= 90) && !(kCode == 8)) {
+            event.preventDefault();
+        }
     }
-    return false;
+    if (element == 'salary') {
+        if ((!(kCode >= 48 && kCode <= 57) && !(kCode == 8))) {
+            event.preventDefault();
+        }
+    }
+    if (element == 'designation') {
+        if (!(kCode >= 65 && kCode <= 90) && !(kCode == 8) && !(kCode == 32)) {
+            event.preventDefault();
+        }
+    }
+    if (element == 'email') {
+        if (!(kCode >= 65 && kCode <= 90) && !(kCode == 8) && !(kCode >= 48 && kCode <= 57) && (kCode == 110)) {
+            event.preventDefault();
+        }
+    }
 }
 function valid(eObj) {
     document.getElementById("eIdError").innerHTML = "";
@@ -342,6 +359,7 @@ function valid(eObj) {
     document.getElementById("eSalaryError").innerHTML = "";
     document.getElementById("empSalary").style = orig_eSalary;
     var flag = true;
+    var profileExtention = eObj._profile.split(";")[0].split("/")[1];
     if (flag) {
         if (eObj._id == '') {
             document.getElementById("eIdError").innerHTML = "please enter employee id";
@@ -355,6 +373,11 @@ function valid(eObj) {
         }
         if (eObj._profile.length === 0) {
             document.getElementById("eProfileError").innerHTML = "please add employee profile";
+            document.getElementById("empProfile").style.border = "1px solid red";
+            flag = false;
+        }
+        else if (profileExtention != 'png' && profileExtention != 'jpeg') {
+            document.getElementById("eProfileError").innerHTML = "Only .png, .jpg and .jpeg images are allowed";
             document.getElementById("empProfile").style.border = "1px solid red";
             flag = false;
         }
@@ -375,6 +398,11 @@ function valid(eObj) {
         }
         if (eObj._email == '') {
             document.getElementById("eEmailError").innerHTML = "please enter email id";
+            document.getElementById("empEmail").style.border = "1px solid red";
+            flag = false;
+        }
+        else if (!emailRegex.test(eObj._email)) {
+            document.getElementById("eEmailError").innerHTML = "please enter valid email id";
             document.getElementById("empEmail").style.border = "1px solid red";
             flag = false;
         }
@@ -401,21 +429,11 @@ function valid(eObj) {
             document.getElementById("empSalary").style.border = "1px solid red";
             flag = false;
         }
-    }
-    if (!nameRegexp.test(eObj._firstName)) {
-        document.getElementById('eFnameError').innerHTML = "white space is not allowed";
-        document.getElementById('empFname').style.border = "1px solid red";
-        flag = false;
-    }
-    if (!nameRegexp.test(eObj._middleName)) {
-        document.getElementById('eMnameError').innerHTML = "white space is not allowed";
-        document.getElementById('empMname').style.border = "1px solid red";
-        flag = false;
-    }
-    if (!nameRegexp.test(eObj._lastName)) {
-        document.getElementById('eLnameError').innerHTML = "white space is not allowed";
-        document.getElementById('empLname').style.border = "1px solid red";
-        flag = false;
+        else if (eObj._salary.length >= 7 || eObj._salary.length < 5) {
+            document.getElementById("eSalaryError").innerHTML = "salary must be in between 10000 and 999999";
+            document.getElementById("empSalary").style.border = "1px solid red";
+            flag = false;
+        }
     }
     return flag;
 }
@@ -433,7 +451,6 @@ submitBtn.onclick = function (event) {
     var eSkills = document.getElementById('empSkills');
     var eExperience = document.getElementById('empExperience');
     var eSalary = document.getElementById('empSalary');
-    console.log(typeof base64);
     eId = eId.value.trim();
     eProfile = base64.length === 0 ? '' : base64;
     eAbout = eAbout.value.trim();
